@@ -2,7 +2,8 @@ import { pool } from '../db/db.js'
 
 export const getRoofs = async (req, res) => {
     try {
-        const results = await pool.query('SELECT * FROM roofs ORDER BY id ASC')
+        const category = 'roof'
+        const results = await pool.query('SELECT * FROM options WHERE category=$1 ORDER BY id ASC', [category])
         res.status(200).json(results.rows)
         console.log(results.rows)
     } catch (error) {
@@ -14,8 +15,9 @@ export const getRoofs = async (req, res) => {
 
 export const getRoofsById = async (req, res) => {
     try {
+        const category = 'roof'
         const roofId = parseInt(req.params.roofId)
-        const results = await pool.query('SELECT * FROM roofs WHERE id=$1', [roofId])
+        const results = await pool.query('SELECT * FROM options WHERE category=$1 AND id=$2', [category, roofId])
         res.status(200).json(results.rows)
         console.log(results.rows)
     } catch (error) {
