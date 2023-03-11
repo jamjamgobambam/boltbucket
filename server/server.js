@@ -7,6 +7,7 @@ import exteriorRoutes from './routes/exterior.js'
 import interiorRoutes from './routes/interior.js'
 import roofRoutes from './routes/roofs.js'
 import wheelRoutes from './routes/wheels.js'
+import customCarRoute from './routes/customcar.js'
 
 dotenv.config()
 
@@ -21,6 +22,7 @@ server.use('/exteriors', exteriorRoutes)
 server.use('/interiors', interiorRoutes)
 server.use('/roofs', roofRoutes)
 server.use('/wheels', wheelRoutes)
+server.use('/customcar', customCarRoute)
 
 server.listen(SERVER_PORT, () => {
     console.log(`server listening at http://localhost:${SERVER_PORT}`)
