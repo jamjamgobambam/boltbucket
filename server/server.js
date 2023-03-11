@@ -22,7 +22,7 @@ server.use('/exteriors', exteriorRoutes)
 server.use('/interiors', interiorRoutes)
 server.use('/roofs', roofRoutes)
 server.use('/wheels', wheelRoutes)
-server.use('/customcar', customCarRoute)
+server.use('/customcars', customCarRoute)
 
 server.listen(SERVER_PORT, () => {
     console.log(`server listening at http://localhost:${SERVER_PORT}`)
