@@ -7,3 +7,12 @@ CREATE TABLE options (
     iscombo boolean,
     iscoupe boolean
 );
+
+CREATE TABLE customcar (
+    id serial PRIMARY KEY,
+    name text,
+    exterior_id integer,
+    roof_id integer,
+    wheels_id integer,
+    interior_id integer
+);
