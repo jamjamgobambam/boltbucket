@@ -2,58 +2,54 @@ import React, { useState, useEffect } from 'react'
 import { useRoutes } from 'react-router-dom'
 import './App.css'
 import '~picocss/pico.min.css'
-import Options from './components/Options'
+import Options from './pages/Options'
 
 const App = () => {
 
-  const [ exterior, setExterior ] = useState([])
-  const [ roof, setRoof ] = useState([])
-  const [ wheels, setWheels ] = useState([])
-  const [ interior, setInterior ] = useState([])
+  const [exterior, setExterior] = useState([])
+  const [roof, setRoof] = useState([])
+  const [wheels, setWheels] = useState([])
+  const [interior, setInterior] = useState([])
 
   useEffect(() => {
-    const fetchExterior = async () => {
-      const exteriorData = 'https://boltbucketapi.up.railway.app/exteriors'
-      const response = await fetch(exteriorData)
-      const exteriorJson = await response.json()
-      setExterior(exteriorData)
-      return exteriorJson
+    const fetchExteriorOptions = async () => {
+      const response = await fetch('https://boltbucketapi.up.railway.app/exteriors')
+      const json = await response.json()
+      setExterior(json)
+      return json
     }
 
-    const fetchRoof = async () => {
-      const roofData = 'https://boltbucketapi.up.railway.app/roofs'
-      const response = await fetch(roofData)
-      const roofJson = await response.json()
-      setRoof(roofData)
-      return roofJson
+    const fetchRoofOptions = async () => {
+      const response = await fetch('https://boltbucketapi.up.railway.app/roofs')
+      const json = await response.json()
+      setRoof(json)
+      return json
     }
 
-    const fetchWheels = async () => {
-      const wheelData = 'https://boltbucketapi.up.railway.app/wheels'
-      const response = await fetch(wheelData)
-      const wheelJson = await response.json()
-      setWheels(wheelData)
-      return wheelJson
+    const fetchWheelOptions = async () => {
+      const response = await fetch('https://boltbucketapi.up.railway.app/wheels')
+      const json = await response.json()
+      setWheels(json)
+      return json
     }
 
-    const fetchInterior = async () => {
-      const interiorData = 'https://boltbucketapi.up.railway.app/interiors'
-      const response = await fetch(interiorData)
-      const interiorJson = await response.json()
-      setInterior(interiorData)
-      return interiorJson
+    const fetchInteriorOptions = async () => {
+      const response = await fetch('https://boltbucketapi.up.railway.app/interiors')
+      const json = await response.json()
+      setInterior(json)
+      return json
     }
 
-    fetchExterior()
-    fetchWheels()
-    fetchRoof()
-    fetchInterior()
+    fetchExteriorOptions()
+    fetchRoofOptions()
+    fetchWheelOptions()
+    fetchInteriorOptions()
   }, [])
 
   let element = useRoutes([
     {
       path: '/',
-      element: <Options exterior={exterior} wheels={wheels} roof={roof} interior={interior} />
+      element: <Options exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
     }
   ])
 
