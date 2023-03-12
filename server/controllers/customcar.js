@@ -16,8 +16,8 @@ export const getCustomCarById = async (req, res) => {
     try {
         const custId = parseInt(req.params.custId)
         const results = await pool.query('SELECT * FROM customcar WHERE id=$1', [custId])
-        res.status(200).json(results.rows)
-        console.log(results.rows)
+        res.status(200).json(results.rows[0])
+        console.log(results.rows[0])
     } catch (error) {
         res.status(409).json( {error: error.message} )
         console.log('unable to retrieve custom car with id', req.params.custId)
