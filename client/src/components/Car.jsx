@@ -11,30 +11,30 @@ const Car = (props) => {
     useEffect(() => {
         const fetchExteriorOptions = async () => {
             const response = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + props.exterior)
-            const exteriorData = await response.json()
-            setExterior(exteriorData)
-            return exteriorData
+            const json = await response.json()
+            setExterior(json)
+            return json
         }
 
         const fetchRoofOptions = async () => {
             const response = await fetch('https://boltbucketapi.up.railway.app/roofs/' + props.roof)
-            const json = await response.json()
-            setRoof(json)
-            return json
+            const roofData = await response.json()
+            setRoof(roofData)
+            return roofData
         }
 
         const fetchWheelOptions = async () => {
             const response = await fetch('https://boltbucketapi.up.railway.app/wheels/' + props.wheels)
-            const json = await response.json()
-            setWheels(json)
-            return json
+            const wheelData = await response.json()
+            setWheels(wheelData)
+            return wheelData
         }
 
         const fetchInteriorOptions = async () => {
             const response = await fetch('https://boltbucketapi.up.railway.app/interiors/' + props.interior)
-            const json = await response.json()
-            setInterior(json)
-            return json
+            const interiorData = await response.json()
+            setInterior(interiorData)
+            return interiorData
         }
 
         fetchExteriorOptions()
@@ -46,13 +46,17 @@ const Car = (props) => {
     return (
         <div className="Car">
             <p>{props.name}</p>
-            {/* <p>{props.exterior}</p> */}
             <p>{exterior.color}</p>
             <img src={exterior.image} />
 
-            <p>{props.roof}</p>
-            <p>{props.wheels}</p>
-            <p>{props.interior}</p>
+            <p>{roof.color}</p>
+            <img src={roof.image} />
+
+            <p>{wheels.color}</p>
+            <img src={wheels.image} />
+
+            <p>{interior.color}</p>
+            <img src={interior.image} />
         </div>
     )
 }
