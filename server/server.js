@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-// import cors from 'cors'
+import cors from 'cors'
 import dotenv from 'dotenv'
 import { pool } from './db/db.js'
 import exteriorRoutes from './routes/exterior.js'
@@ -16,7 +16,7 @@ const SERVER_PORT = process.env.PORT || 8081
 
 server.use(bodyParser.urlencoded( {extended: true} ))
 server.use(bodyParser.json( {extended: true} ))
-// server.use(cors())
+server.use(cors())
 
 server.use('/exteriors', exteriorRoutes)
 server.use('/interiors', interiorRoutes)

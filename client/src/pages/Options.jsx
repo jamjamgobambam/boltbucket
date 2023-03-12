@@ -4,7 +4,7 @@ import '../App.css'
 
 const Options = ({custom, exterior, roof, wheels, interior}) => {
 
-  const [customCar, setCustomCar] = useState({name: '', exterior_id: 0, roof_id: 0, wheel_id: 0, interior_id: 0})
+  const [customCar, setCustomCar] = useState({name: 'new car', exterior_id: 0, roof_id: 0, wheel_id: 0, interior_id: 0})
 
   const handleChange = (event) => {
     const {name, value} = event.target
@@ -22,13 +22,13 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
     const options = {
       method: 'POST',
       headers: {
-        'Content Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(customCar)
     }
 
     const url = 'https://boltbucketapi.up.railway.app/customcars/create'
-    console.log(url)
+    console.log(JSON.stringify(options))
     fetch('https://boltbucketapi.up.railway.app/customcars/create', options)
     // window.location = '/customcars'
   }
