@@ -8,6 +8,7 @@ const ViewCustomCars = (props) => {
 
     useEffect(() => {
         setCustomCars(props.data)
+        console.log(customCars)
     }, [props])
 
     return (
@@ -15,8 +16,16 @@ const ViewCustomCars = (props) => {
             {
                 customCars && customCars.length > 0 ?
                 customCars.map((customCar, index) =>
-                <Car key={customCar.id} id={customCar.id} name={customCar.name} />
-                ) : <p>{'No custom cards yet 😔'}</p>
+                <Car
+                    key={customCar.id}
+                    id={customCar.id}
+                    name={customCar.name}
+                    exterior={customCar.exterior_id}
+                    roof={customCar.roof_id}
+                    wheels={customCar.wheels_id}
+                    interior={customCar.interior_id}
+                />
+                ) : <p>{'No custom cars yet 😔'}</p>
             }
         </div>
     )

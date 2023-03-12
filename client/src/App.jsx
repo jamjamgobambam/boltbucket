@@ -65,7 +65,7 @@ const App = () => {
     },
     {
       path: '/customcars',
-      element: <ViewCustomCars custom={custom} exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
+      element: <ViewCustomCars data={custom} />
     },
     {
       path: '/customcars/:id',

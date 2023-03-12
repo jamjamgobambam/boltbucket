@@ -15,7 +15,7 @@ export const getExteriors = async (req, res) => {
 
 export const getExteriorById = async (req, res) => {
     try {
-        const category = 'interior'
+        const category = 'exterior'
         const extId = parseInt(req.params.extId)
         const results = await pool.query('SELECT * FROM options WHERE category=$1 AND id=$2', [category, extId])
         res.status(200).json(results.rows)
