@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import '../App.css'
 
 const Car = (props) => {
@@ -11,9 +12,9 @@ const Car = (props) => {
     useEffect(() => {
         const fetchExteriorOptions = async () => {
             const response = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + props.exterior)
-            const json = await response.json()
-            setExterior(json)
-            return json
+            const exteriorData = await response.json()
+            setExterior(exteriorData)
+            return exteriorData
         }
 
         const fetchRoofOptions = async () => {
@@ -43,10 +44,22 @@ const Car = (props) => {
         fetchInteriorOptions()
     }, [])
 
+    const deleteCustomCar = async (event) => {
+        event.preventDefault()
+        
+        const options = {
+            method: 'DELETE'
+        }
+
+        await fetch('https://boltbucketapi.up.railway.app/customcars/delete/' + props.id, options)
+
+        window.location = '/customcars'
+    }
+
     return (
         <div className="Car">
             <p>{props.name}</p>
-            <p>{exterior.id}</p>
+            <p>{exterior.color}</p>
             <img src={exterior.image} />
 
             <p>{roof.color}</p>
@@ -57,6 +70,10 @@ const Car = (props) => {
 
             <p>{interior.color}</p>
             <img src={interior.image} />
+
+            <Link to={'/edit/' + props.id} role='button'>Edit</Link>
+            <Link to={'/customcars/' + props.id} role='button'>View Details</Link>
+            <button onClick={deleteCustomCar}>Delete</button>
         </div>
     )
 }
