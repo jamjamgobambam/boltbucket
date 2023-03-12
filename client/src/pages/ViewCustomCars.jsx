@@ -23,6 +23,7 @@ const ViewCustomCars = (props) => {
                     roof={customCar.roof_id}
                     wheels={customCar.wheels_id}
                     interior={customCar.interior_id}
+                    price={customCar.total_price}
                 />
                 ) : <p>{'No custom cars yet 😔'}</p>
             }

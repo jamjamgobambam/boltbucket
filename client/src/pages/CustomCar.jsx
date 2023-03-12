@@ -70,18 +70,22 @@ const CustomCar = ({data}) => {
             
             <h3>Exterior</h3>
             <p>{exterior.color}</p>
+            <p>{exterior.price}</p>
             <img src={exterior.image} />
 
             <h3>Roof</h3>
             <p>{roof.color}</p>
+            <p>{roof.price}</p>
             <img src={roof.image} />
 
             <h3>Wheels</h3>
             <p>{wheels.color}</p>
+            <p>{wheels.price}</p>
             <img src={wheels.image} />
 
             <h3>Interior</h3>
             <p>{interior.color}</p>
+            <p>{wheels.price}</p>
             <img src={interior.image} />
 
             <Link to={'/edit/' + customCar.id} role='button'>Edit</Link>
