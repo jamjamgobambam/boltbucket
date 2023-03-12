@@ -18,8 +18,8 @@ export const getInteriorById = async (req, res) => {
         const category = 'interior'
         const intId = parseInt(req.params.intId)
         const results = await pool.query('SELECT * FROM options WHERE category=$1 AND id=$2', [category, intId])
-        res.status(200).json(results.rows)
-        console.log(results.rows)
+        res.status(200).json(results.rows[0])
+        console.log(results.rows[0])
     } catch (error) {
         res.status(409).json( {error: error.message} )
         console.log('unable to retrieve interior with id', req.params.intId)

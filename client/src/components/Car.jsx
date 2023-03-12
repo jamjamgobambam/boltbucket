@@ -46,7 +46,7 @@ const Car = (props) => {
     return (
         <div className="Car">
             <p>{props.name}</p>
-            <p>{exterior.color}</p>
+            <p>{exterior.id}</p>
             <img src={exterior.image} />
 
             <p>{roof.color}</p>
