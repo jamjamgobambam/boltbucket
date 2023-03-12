@@ -14,5 +14,6 @@ CREATE TABLE customcar (
     exterior_id integer,
     roof_id integer,
     wheels_id integer,
-    interior_id integer
+    interior_id integer,
+    total_price money
 );

@@ -27,12 +27,12 @@ export const getCustomCarById = async (req, res) => {
 
 export const createCustomCar = async (req, res) => {
     try {
-        const { name, exterior_id, roof_id, wheels_id, interior_id } = req.body
+        const { name, exterior_id, roof_id, wheels_id, interior_id, total_price } = req.body
         const results = await pool.query(
-            `INSERT INTO customcar (name, exterior_id, roof_id, wheels_id, interior_id)
-            VALUES($1, $2, $3, $4, $5)
+            `INSERT INTO customcar (name, exterior_id, roof_id, wheels_id, interior_id, total_price)
+            VALUES($1, $2, $3, $4, $5, $6)
             RETURNING *`,
-            [name, parseInt(exterior_id), parseInt(roof_id), parseInt(wheels_id), parseInt(interior_id)]
+            [name, parseInt(exterior_id), parseInt(roof_id), parseInt(wheels_id), parseInt(interior_id), parseFloat(total_price)]
         )
 
         res.status(201).json(results.rows[0])
@@ -60,12 +60,12 @@ export const deleteCustomCar = async (req, res) => {
 
 export const updateCustomCar = async (req, res) => {
     try {
-        const { name, exterior_id, roof_id, wheels_id, interior_id } = req.body
+        const { name, exterior_id, roof_id, wheels_id, interior_id, total_price } = req.body
         const custId = req.params.custId
 
         const results = await pool.query(
-            `UPDATE customcar SET name=$1, exterior_id=$2, roof_id=$3, wheels_id=$4, interior_id=$5 WHERE id=$6`,
-            [name, exterior_id, roof_id, wheels_id, interior_id, custId]
+            `UPDATE customcar SET name=$1, exterior_id=$2, roof_id=$3, wheels_id=$4, interior_id=$5, total_price=$6 WHERE id=$7`,
+            [name, exterior_id, roof_id, wheels_id, interior_id, total_price, custId]
         )
 
         res.status(200).json(results.rows)

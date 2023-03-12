@@ -4,10 +4,12 @@ import '../App.css'
 
 const Options = ({custom, exterior, roof, wheels, interior}) => {
 
-  const [customCar, setCustomCar] = useState({name: 'new car', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0})
+  const [customCar, setCustomCar] = useState({name: 'new car', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, total_price: 0})
 
   const handleChange = (event) => {
-    const {name, value} = event.target
+    const {name, value, price} = event.target
+    customCar.total_price += price
+
     setCustomCar((prev) => {
       return {
         ...prev,
@@ -42,7 +44,8 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
             exterior.map((exterior, index) =>
               <div className="OptionsCard" style={{ backgroundImage: `url(${exterior.image})`}} key={exterior.id}>
                 <p>{exterior.color}</p>
-                <button onClick={handleChange} name='exterior_id' value={exterior.id}><i className="fa-solid fa-circle-plus"></i></button>
+                <p>{exterior.price}</p>
+                <button onClick={handleChange} name='exterior_id' value={exterior.id} price={exterior.price}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
             ) : <p>{'No exterior options'}</p>
           }
@@ -57,7 +60,8 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
             roof.map((roof, index) =>
               <div className="OptionsCard" style={{ backgroundImage: `url(${roof.image})`}} key={roof.id}>
                 <p>{roof.color}</p>
-                <button onClick={handleChange} name='roof_id' value={roof.id}><i className="fa-solid fa-circle-plus"></i></button>
+                <p>{roof.price}</p>
+                <button onClick={handleChange} name='roof_id' value={roof.id} price={roof.price}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
             ) : <p>{'No roof options'}</p>
           }
@@ -72,7 +76,8 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
             wheels.map((wheels, index) =>
               <div className="OptionsCard" style={{ backgroundImage: `url(${wheels.image})`}} key={wheels.id}>
                 <p>{wheels.color}</p>
-                <button onClick={handleChange} name='wheels_id' value={wheels.id}><i className="fa-solid fa-circle-plus"></i></button>
+                <p>{wheels.price}</p>
+                <button onClick={handleChange} name='wheels_id' value={wheels.id} price={wheels.price}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
             ) : <p>{'No wheels options'}</p>
           }
@@ -87,7 +92,8 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
             interior.map((interior, index) =>
               <div className="OptionsCard" style={{ backgroundImage: `url(${interior.image})`}} key={interior.id}>
                 <p>{interior.color}</p>
-                <button onClick={handleChange} name='interior_id' value={interior.id}><i className="fa-solid fa-circle-plus"></i></button>
+                <p>{interior.price}</p>
+                <button onClick={handleChange} name='interior_id' value={interior.id} price={interior.price}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
             ) : <p>{'No interior options'}</p>
           }

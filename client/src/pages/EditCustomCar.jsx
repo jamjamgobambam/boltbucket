@@ -5,7 +5,7 @@ import '../App.css'
 const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
 
     const {id} = useParams()
-    const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0})
+    const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, total_price: 0})
 
     const [exteriorChoice, setExteriorChoice] = useState([])
     const [roofChoice, setRoofChoice] = useState([])
@@ -16,7 +16,7 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
         const result = data.filter(item => item.id === parseInt(id))[0]
 
         if (result) {
-            setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id})
+            setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id, total_price: result.total_price})
         }
 
         const fetchExteriorChoice = async () => {
@@ -52,7 +52,9 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
     }, [data, id])
 
     const handleChange = (event) => {
-        const {name, value} = event.target
+        const {name, value, price} = event.target
+        customCar.total_price += price
+
         setCustomCar((prev) => {
             return {
             ...prev,
@@ -80,6 +82,7 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
     return (
         <div className="EditCustomCar">
             <h2>{customCar.name}</h2>
+            <p>{customCar.total_price}</p>
             
             <h3>Current Exterior</h3>
             <p>{exteriorChoice.color}</p>
@@ -93,7 +96,7 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
                     exterior.map((exterior, index) =>
                     <div style={{ backgroundImage: `url(${exterior.image})`}} key={exterior.id}>
                         <p>{exterior.color}</p>
-                        <button onClick={handleChange} name='exterior_id' value={exterior.id}><i className="fa-solid fa-circle-plus"></i></button>
+                        <button onClick={handleChange} name='exterior_id' value={exterior.id} price={exterior.price}><i className="fa-solid fa-circle-plus"></i></button>
                     </div>
                     ) : <p>{'No exterior options'}</p>
                 }
@@ -112,7 +115,7 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
                     roof.map((roof, index) =>
                     <div className="OptionsCard" style={{ backgroundImage: `url(${roof.image})`}} key={roof.id}>
                         <p>{roof.color}</p>
-                        <button onClick={handleChange} name='roof_id' value={roof.id}><i className="fa-solid fa-circle-plus"></i></button>
+                        <button onClick={handleChange} name='roof_id' value={roof.id} price={roof.price}><i className="fa-solid fa-circle-plus"></i></button>
                     </div>
                     ) : <p>{'No roof options'}</p>
                 }
@@ -131,7 +134,7 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
                     wheels.map((wheels, index) =>
                     <div className="OptionsCard" style={{ backgroundImage: `url(${wheels.image})`}} key={wheels.id}>
                         <p>{wheels.color}</p>
-                        <button onClick={handleChange} name='wheels_id' value={wheels.id}><i className="fa-solid fa-circle-plus"></i></button>
+                        <button onClick={handleChange} name='wheels_id' value={wheels.id} price={wheels.price}><i className="fa-solid fa-circle-plus"></i></button>
                     </div>
                     ) : <p>{'No wheels options'}</p>
                 }
@@ -150,7 +153,7 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
                     interior.map((interior, index) =>
                     <div className="OptionsCard" style={{ backgroundImage: `url(${interior.image})`}} key={interior.id}>
                         <p>{interior.color}</p>
-                        <button onClick={handleChange} name='interior_id' value={interior.id}><i className="fa-solid fa-circle-plus"></i></button>
+                        <button onClick={handleChange} name='interior_id' value={interior.id} price={interior.price}><i className="fa-solid fa-circle-plus"></i></button>
                     </div>
                     ) : <p>{'No interior options'}</p>
                 }

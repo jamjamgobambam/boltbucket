@@ -5,7 +5,7 @@ import '../App.css'
 const CustomCar = ({data}) => {
 
     const {id} = useParams()
-    const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0})
+    const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, total_price: 0})
 
     const [exterior, setExterior] = useState([])
     const [roof, setRoof] = useState([])
@@ -16,7 +16,7 @@ const CustomCar = ({data}) => {
         const result = data.filter(item => item.id === parseInt(id))[0]
 
         if (result) {
-            setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id})
+            setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id, total_price: result.total_price})
         }
 
         const fetchExteriorChoice = async () => {
@@ -66,6 +66,7 @@ const CustomCar = ({data}) => {
     return (
         <div className="CustomCar">
             <h2>{customCar.name}</h2>
+            <p>{customCar.total_price}</p>
             
             <h3>Exterior</h3>
             <p>{exterior.color}</p>
