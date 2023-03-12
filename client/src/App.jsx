@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useRoutes } from 'react-router-dom'
+import { useRoutes, Link } from 'react-router-dom'
 import './App.css'
 import '~picocss/pico.min.css'
 import Options from './pages/Options'
+import ViewCustomCars from './pages/ViewCustomCars'
+import CustomCar from './pages/CustomCar'
+import EditCustomCar from './pages/EditCustomCar'
 
 const App = () => {
 
@@ -10,6 +13,7 @@ const App = () => {
   const [roof, setRoof] = useState([])
   const [wheels, setWheels] = useState([])
   const [interior, setInterior] = useState([])
+  const [custom, setCustom] = useState([])
 
   useEffect(() => {
     const fetchExteriorOptions = async () => {
@@ -40,16 +44,36 @@ const App = () => {
       return json
     }
 
+    const fetchCustomCars = async () => {
+      const response = await fetch('https://boltbucketapi.up.railway.app/customcars')
+      const json = await response.json()
+      setCustom(json)
+      return json
+    }
+
     fetchExteriorOptions()
     fetchRoofOptions()
     fetchWheelOptions()
     fetchInteriorOptions()
+    fetchCustomCars()
   }, [])
 
   let element = useRoutes([
     {
       path: '/',
-      element: <Options exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
+      element: <Options custom={custom} exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
+    },
+    {
+      path: '/customcars',
+      element: <ViewCustomCars custom={custom} exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
+    },
+    {
+      path: '/customcars/:id',
+      element: <CustomCar custom={custom} exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
+    },
+    {
+      path: '/edit/:id',
+      element: <EditCustomCar custom={custom} exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
     }
   ])
 
@@ -59,7 +83,8 @@ const App = () => {
       {element}
       
       <div>
-        <button>Customize</button>
+        <Link to="/" role="button">Customize</Link>
+        <Link to="/customcars" role="button">View Custom Cars</Link>
       </div>
     </div>
   )

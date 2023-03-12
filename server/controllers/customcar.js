@@ -32,7 +32,7 @@ export const createCustomCar = async (req, res) => {
             `INSERT INTO customcar (name, exterior_id, roof_id, wheels_id, interior_id)
             VALUES($1, $2, $3, $4)
             RETURNING *`,
-            [name, exterior_id, roof_id, wheels_id, interior_id]
+            [name, parseInt(exterior_id), parseInt(roof_id), parseInt(wheels_id), parseInt(interior_id)]
         )
 
         res.status(201).json(results.rows[0])
