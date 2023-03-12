@@ -53,8 +53,10 @@ const Car = (props) => {
     }
 
     return (
-        <div className="Car">
-            <p>{props.name}</p>
+        <article>
+            <header>
+                <h3>{props.name}</h3>
+            </header>
             <p>{props.price}</p>
             <p>{exterior.color}</p>
             <img src={exterior.image} />
@@ -71,7 +73,7 @@ const Car = (props) => {
             <Link to={'/edit/' + props.id} role='button'>Edit</Link>
             <Link to={'/customcars/' + props.id} role='button'>View Details</Link>
             <button onClick={deleteCustomCar}>Delete</button>
-        </div>
+        </article>
     )
 }
 
