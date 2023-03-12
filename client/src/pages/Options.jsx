@@ -27,8 +27,8 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
       body: JSON.stringify(customCar)
     }
 
-    const url = 'https://boltbucketapi.up.railway.app/customcars/create'
-    console.log(JSON.stringify(options))
+    console.log(JSON.stringify(customCar))
+
     fetch('https://boltbucketapi.up.railway.app/customcars/create', options)
     // window.location = '/customcars'
   }
@@ -41,7 +41,7 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
           {
             exterior && exterior.length > 0 ?
             exterior.map((exterior, index) =>
-              <div className="OptionsCard" style={{ backgroundImage: `url(${exterior.image})`}}>
+              <div className="OptionsCard" style={{ backgroundImage: `url(${exterior.image})`}} key={exterior.id}>
                 <p>{exterior.color}</p>
                 <button onClick={handleChange} name='exterior_id' value={exterior.id}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
@@ -56,7 +56,7 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
           {
             roof && roof.length > 0 ?
             roof.map((roof, index) =>
-              <div className="OptionsCard" style={{ backgroundImage: `url(${roof.image})`}}>
+              <div className="OptionsCard" style={{ backgroundImage: `url(${roof.image})`}} key={roof.id}>
                 <p>{roof.color}</p>
                 <button onClick={handleChange}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
@@ -71,7 +71,7 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
           {
             wheels && wheels.length > 0 ?
             wheels.map((wheels, index) =>
-              <div className="OptionsCard" style={{ backgroundImage: `url(${wheels.image})`}}>
+              <div className="OptionsCard" style={{ backgroundImage: `url(${wheels.image})`}} key={wheels.id}>
                 <p>{wheels.color}</p>
                 <button onClick={handleChange}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
@@ -86,7 +86,7 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
           {
             interior && interior.length > 0 ?
             interior.map((interior, index) =>
-              <div className="OptionsCard" style={{ backgroundImage: `url(${interior.image})`}}>
+              <div className="OptionsCard" style={{ backgroundImage: `url(${interior.image})`}} key={interior.id}>
                 <p>{interior.color}</p>
                 <button onClick={handleChange}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
