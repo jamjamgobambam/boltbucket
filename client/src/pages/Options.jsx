@@ -4,7 +4,7 @@ import '../App.css'
 
 const Options = ({custom, exterior, roof, wheels, interior}) => {
 
-  const [customCar, setCustomCar] = useState({name: 'new car', exterior_id: 0, roof_id: 0, wheel_id: 0, interior_id: 0})
+  const [customCar, setCustomCar] = useState({name: 'new car', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0})
 
   const handleChange = (event) => {
     const {name, value} = event.target
@@ -16,7 +16,7 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
     })
   }
 
-  const createCustomCar = (event) => {
+  const createCustomCar = async (event) => {
     event.preventDefault()
 
     const options = {
@@ -27,10 +27,9 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
       body: JSON.stringify(customCar)
     }
 
-    console.log(JSON.stringify(customCar))
+    await fetch('https://boltbucketapi.up.railway.app/customcars/create', options)
 
-    fetch('https://boltbucketapi.up.railway.app/customcars/create', options)
-    // window.location = '/customcars'
+    window.location = '/customcars'
   }
 
   return (
@@ -58,7 +57,7 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
             roof.map((roof, index) =>
               <div className="OptionsCard" style={{ backgroundImage: `url(${roof.image})`}} key={roof.id}>
                 <p>{roof.color}</p>
-                <button onClick={handleChange}><i className="fa-solid fa-circle-plus"></i></button>
+                <button onClick={handleChange} name='roof_id' value={roof.id}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
             ) : <p>{'No roof options'}</p>
           }
@@ -73,7 +72,7 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
             wheels.map((wheels, index) =>
               <div className="OptionsCard" style={{ backgroundImage: `url(${wheels.image})`}} key={wheels.id}>
                 <p>{wheels.color}</p>
-                <button onClick={handleChange}><i className="fa-solid fa-circle-plus"></i></button>
+                <button onClick={handleChange} name='wheels_id' value={wheels.id}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
             ) : <p>{'No wheels options'}</p>
           }
@@ -88,7 +87,7 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
             interior.map((interior, index) =>
               <div className="OptionsCard" style={{ backgroundImage: `url(${interior.image})`}} key={interior.id}>
                 <p>{interior.color}</p>
-                <button onClick={handleChange}><i className="fa-solid fa-circle-plus"></i></button>
+                <button onClick={handleChange} name='interior_id' value={interior.id}><i className="fa-solid fa-circle-plus"></i></button>
               </div>
             ) : <p>{'No interior options'}</p>
           }
