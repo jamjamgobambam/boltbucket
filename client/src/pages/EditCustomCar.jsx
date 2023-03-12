@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 
-const EditCustomCar = ({exterior, roof, wheels, interior}) => {
+const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
 
     const {id} = useParams()
-    const [customCar, setCustomCar] = useState([])
+    const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0})
 
     const [exteriorChoice, setExteriorChoice] = useState([])
     const [roofChoice, setRoofChoice] = useState([])
@@ -13,44 +13,43 @@ const EditCustomCar = ({exterior, roof, wheels, interior}) => {
     const [interiorChoice, setInteriorChoice] = useState([])
 
     useEffect(() => {
-        const getCustomCar = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/customcars/' + id)
-            const result = await response.json()
-            setCustomCar(result)
-            console.log(id)
+        const result = data.filter(item => item.id === parseInt(id))[0]
 
-            // const fetchExteriorOptions = async () => {
-            //     const response = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + customCar.exterior_id)
-            //     const exteriorData = await response.json()
-            //     setExteriorChoice(exteriorData)
-            // }
-    
-            // const fetchRoofOptions = async () => {
-            //     const response = await fetch('https://boltbucketapi.up.railway.app/roofs/' + customCar.roof_id)
-            //     const roofData = await response.json()
-            //     setRoofChoice(roofData)
-            // }
-    
-            // const fetchWheelOptions = async () => {
-            //     const response = await fetch('https://boltbucketapi.up.railway.app/wheels/' + customCar.wheels_id)
-            //     const wheelData = await response.json()
-            //     setWheelsChoice(wheelData)
-            // }
-    
-            // const fetchInteriorOptions = async () => {
-            //     const response = await fetch('https://boltbucketapi.up.railway.app/interiors/' + customCar.interior_id)
-            //     const interiorData = await response.json()
-            //     setInteriorChoice(interiorData)
-            // }
-
-            // fetchExteriorOptions()
-            // fetchRoofOptions()
-            // fetchWheelOptions()
-            // fetchInteriorOptions()
+        if (result) {
+            setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id})
         }
 
-        getCustomCar()
-    }, [])
+        const fetchExteriorChoice = async () => {
+            const exteriorResponse = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + customCar.exterior_id)
+            const exteriorData = await exteriorResponse.json()
+            setExteriorChoice(exteriorData)
+        }
+
+        const fetchRoofChoice = async () => {
+            const roofResponse = await fetch('https://boltbucketapi.up.railway.app/roofs/' + customCar.roof_id)
+            const roofData = await roofResponse.json()
+            setRoofChoice(roofData)
+        }
+
+        const fetchWheelsChoice = async () => {
+            const wheelResponse = await fetch('https://boltbucketapi.up.railway.app/wheels/' + customCar.wheels_id)
+            const wheelData = await wheelResponse.json()
+            setWheelsChoice(wheelData)
+        }
+
+        const fetchInteriorChoice = async () => {
+            const interiorResponse = await fetch('https://boltbucketapi.up.railway.app/interiors/' + customCar.interior_id)
+            const interiorData = await interiorResponse.json()
+            setInteriorChoice(interiorData)
+        }
+
+        if (customCar.id != 0) {
+            fetchExteriorChoice()
+            fetchRoofChoice()
+            fetchWheelsChoice()
+            fetchInteriorChoice()
+        }
+    }, [data, id])
 
     const handleChange = (event) => {
         const {name, value} = event.target
@@ -65,7 +64,17 @@ const EditCustomCar = ({exterior, roof, wheels, interior}) => {
     const updateCustomCar = async (event) => {
         event.preventDefault()
     
-        
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(customCar)
+        }
+
+        await fetch('https://boltbucketapi.up.railway.app/customcars/edit/' + customCar.id, options)
+
+        window.location = '/customcars'
     }
 
     return (
