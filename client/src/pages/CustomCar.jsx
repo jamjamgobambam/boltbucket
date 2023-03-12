@@ -5,50 +5,82 @@ import '../App.css'
 const CustomCar = ({data}) => {
 
     const {id} = useParams()
-    const [customCar, setCustomCar] = useState([])
+    const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0})
+
+    useEffect(() => {
+        const result = data.filter(item => item.id === parseInt(id))
+        console.log(JSON.stringify(result))
+        setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id})
+    }, [data, id])
 
     const [exterior, setExterior] = useState([])
     const [roof, setRoof] = useState([])
     const [wheels, setWheels] = useState([])
     const [interior, setInterior] = useState([])
 
-    useEffect(() => {
-        const getCustomCar = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/customcars/' + id)
-            const result = await response.json()
-            setCustomCar(result)
-        }
+    // useEffect(() => {
+    //     fetch('https://boltbucketapi.up.railway.app/customcars/' + id)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setCustomCar(data)
+    //             console.log(customCar)
 
-        const fetchExteriorOptions = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + customCar.exterior_id)
-            const exteriorData = await response.json()
-            setExterior(exteriorData)
-        }
+    //             const fetchOptions = async () => {
+    //                 const exteriorResponse = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + customCar.exterior_id)
+    //                 const exteriorData = await exteriorResponse.json()
+    //                 setExterior(exteriorData)
 
-        const fetchRoofOptions = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/roofs/' + customCar.roof_id)
-            const roofData = await response.json()
-            setRoof(roofData)
-        }
+    //                 const roofResponse = await fetch('https://boltbucketapi.up.railway.app/roofs/' + customCar.roof_id)
+    //                 const roofData = await roofResponse.json()
+    //                 setRoof(roofData)
 
-        const fetchWheelOptions = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/wheels/' + customCar.wheels_id)
-            const wheelData = await response.json()
-            setWheels(wheelData)
-        }
+    //                 const wheelResponse = await fetch('https://boltbucketapi.up.railway.app/wheels/' + customCar.wheels_id)
+    //                 const wheelData = await wheelResponse.json()
+    //                 setWheels(wheelData)
 
-        const fetchInteriorOptions = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/interiors/' + customCar.interior_id)
-            const interiorData = await response.json()
-            setInterior(interiorData)
-        }
+    //                 const interiorResponse = await fetch('https://boltbucketapi.up.railway.app/interiors/' + customCar.interior_id)
+    //                 const interiorData = await interiorResponse.json()
+    //                 setInterior(interiorData)
+    //             }
 
-        getCustomCar()
-        fetchExteriorOptions()
-        fetchRoofOptions()
-        fetchWheelOptions()
-        fetchInteriorOptions()
-    }, [])
+    //             fetchOptions()
+    //         })
+    // }, [])
+
+    
+
+    
+
+    // useEffect(() => {
+    //     const fetchExteriorOptions = async () => {
+    //         const response = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + customCar.exterior_id)
+    //         const exteriorData = await response.json()
+    //         setExterior(exteriorData)
+    //     }
+
+    //     const fetchRoofOptions = async () => {
+    //         const response = await fetch('https://boltbucketapi.up.railway.app/roofs/' + customCar.roof_id)
+    //         const roofData = await response.json()
+    //         setRoof(roofData)
+    //     }
+
+    //     const fetchWheelOptions = async () => {
+    //         const response = await fetch('https://boltbucketapi.up.railway.app/wheels/' + customCar.wheels_id)
+    //         const wheelData = await response.json()
+    //         setWheels(wheelData)
+    //     }
+
+    //     const fetchInteriorOptions = async () => {
+    //         const response = await fetch('https://boltbucketapi.up.railway.app/interiors/' + customCar.interior_id)
+    //         const interiorData = await response.json()
+    //         setInterior(interiorData)
+    //     }
+
+    //     fetchExteriorOptions()
+    //     fetchRoofOptions()
+    //     fetchWheelOptions()
+    //     fetchInteriorOptions()
+    // }, [])
 
     const deleteCustomCar = async (event) => {
         event.preventDefault()
