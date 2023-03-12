@@ -79,13 +79,20 @@ const App = () => {
 
   return (
     <div className="App">
+
+      <header>
+        <h1>Bolt Bucket 🏎️</h1>
+
+        <div className="nav-buttons">
+          <Link to="/" role="button">Customize</Link>
+          <Link to="/customcars" role="button">View Cars</Link>
+        </div>
+      </header>
       
-      {element}
-      
-      <div>
-        <Link to="/" role="button">Customize</Link>
-        <Link to="/customcars" role="button">View Custom Cars</Link>
-      </div>
+      <main>
+        {element}
+      </main>
+    
     </div>
   )
 }

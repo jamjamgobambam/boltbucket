@@ -3,27 +3,95 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  display: flex;
   width: 100vw;
   height: 100vh;
 }
 
+header {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 80px;
+  padding: 20px 50px 10px 50px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.nav-buttons {
+  padding-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+header [role=button] {
+  margin-left: 10px;
+  margin-bottom: 0px;
+  height: 40px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  line-height: 0;
+}
+
 .Options {
-  width: 35vw;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
+  width: 100vw;
+  height: 80px;
+  padding: 30px 50px 30px 50px;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-content: center;
+}
+
+.Options details {
+  width: 20vw;
+  border: 0px;
+  margin-right: 20px;
+}
+
+.Options summary {
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+.Options summary:after {
+  background-image: url('./assets/circle-arrow-down-solid.svg');
+}
+
+.Options summary:not([role]) {
+  font-weight: bold;
+  color: white;
+}
+
+.Options input[type=text] {
+  width: 200px;
+  height: 40px;
+  font-size: 14px;
+  margin-right: 20px;
+  margin-bottom: 0px;
+  display: flex;
+  align-self: center;
+}
+
+.Options input[type=submit] {
+  width: 120px;
+  height: 40px;
+  margin-bottom: 0px;
+  font-size: 14px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
 }
 
 .options-list {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .OptionsCard {
   background-repeat: no-repeat;
-  background-size: 180px auto;
-  width: 180px;
+  background-size: 100px auto;
+  width: 100px;
   margin: 10px;
   text-align: center;
 }

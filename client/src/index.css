@@ -13,3 +13,26 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+:root:not([dark-theme=dark]), [dark-theme=light] {
+  --h1-color: white;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+button, input[type=submit] {
+  background-color: rgb(115, 2, 12);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 2px solid transparent;
+  padding: 10px;
+  line-height: 0;
+}
+
+button:hover, input[type=submit]:hover {
+  background-color: rgb(13, 13, 13);
+  border: 2px solid white;
+}

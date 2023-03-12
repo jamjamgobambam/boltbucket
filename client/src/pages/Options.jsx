@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import OptionsCard from '../components/OptionsCard'
 import '../App.css'
 
 const Options = ({custom, exterior, roof, wheels, interior}) => {
@@ -50,77 +51,27 @@ const Options = ({custom, exterior, roof, wheels, interior}) => {
     <div className="Options">
       <details>
         <summary>Exterior</summary>
-        <div className="options-list">
-          {
-            exterior && exterior.length > 0 ?
-            exterior.map((exterior, index) =>
-              <div className="OptionsCard" style={{ backgroundImage: `url(${exterior.image})`}} key={exterior.id}>
-                <p>{exterior.color}</p>
-                <p>{exterior.price}</p>
-                <button onClick={handleChange(exterior.price)} name='exterior_id' value={exterior.id}><i className="fa-solid fa-circle-plus"></i></button>
-              </div>
-            ) : <p>{'No exterior options'}</p>
-          }
-        </div>
+        <OptionsCard data={exterior} optionName={'exterior_id'} handleChange={handleChange} />
       </details>
 
       <details>
         <summary>Roof</summary>
-        <div className="options-list">
-          {
-            roof && roof.length > 0 ?
-            roof.map((roof, index) =>
-              <div className="OptionsCard" style={{ backgroundImage: `url(${roof.image})`}} key={roof.id}>
-                <p>{roof.color}</p>
-                <p>{roof.price}</p>
-                <button onClick={handleChange(roof.price)} name='roof_id' value={roof.id}><i className="fa-solid fa-circle-plus"></i></button>
-              </div>
-            ) : <p>{'No roof options'}</p>
-          }
-        </div>
+        <OptionsCard data={roof} optionName={'roof_id'} handleChange={handleChange} />
       </details>
 
       <details>
         <summary>Wheels</summary>
-        <div className="options-list">
-          {
-            wheels && wheels.length > 0 ?
-            wheels.map((wheels, index) =>
-              <div className="OptionsCard" style={{ backgroundImage: `url(${wheels.image})`}} key={wheels.id}>
-                <p>{wheels.color}</p>
-                <p>{wheels.price}</p>
-                <button onClick={handleChange(wheels.price)} name='wheels_id' value={wheels.id}><i className="fa-solid fa-circle-plus"></i></button>
-              </div>
-            ) : <p>{'No wheels options'}</p>
-          }
-        </div>
+        <OptionsCard data={wheels} optionName={'wheels_id'} handleChange={handleChange} />
       </details>
 
       <details>
         <summary>Interior</summary>
-        <div className="options-list">
-          {
-            interior && interior.length > 0 ?
-            interior.map((interior, index) =>
-              <div className="OptionsCard" style={{ backgroundImage: `url(${interior.image})`}} key={interior.id}>
-                <p>{interior.color}</p>
-                <p>{interior.price}</p>
-                <button onClick={handleChange(interior.price)} name='interior_id' value={interior.id}><i className="fa-solid fa-circle-plus"></i></button>
-              </div>
-            ) : <p>{'No interior options'}</p>
-          }
-        </div>
+        <OptionsCard data={interior} optionName={'interior_id'} handleChange={handleChange} />
       </details>
 
-      <form>
-        <label>
-          Name your car
-          <input type='text' id='name' name='name' placeholder='My New Car' onChange={handleName} />
-        </label>
+      <input type='text' id='name' name='name' placeholder='My New Car' onChange={handleName} />
 
-      </form>
-
-      <input type='submit' value='Create Custom Car' onClick={createCustomCar} />
+      <input type='submit' value='Create' onClick={createCustomCar} />
     </div>
   )
 }
