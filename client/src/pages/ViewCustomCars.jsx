@@ -8,7 +8,6 @@ const ViewCustomCars = (props) => {
 
     useEffect(() => {
         setCustomCars(props.data)
-        console.log(customCars)
     }, [props])
 
     return (
