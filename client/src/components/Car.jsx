@@ -57,22 +57,24 @@ const Car = (props) => {
             <header>
                 <h3>{props.name}</h3>
             </header>
-            <p>{props.price}</p>
-            <p>{exterior.color}</p>
-            <img src={exterior.image} />
 
-            <p>{roof.color}</p>
-            <img src={roof.image} />
+            <p className='price'>💰 ${props.price} 💰</p>
 
-            <p>{wheels.color}</p>
-            <img src={wheels.image} />
+            <h4><i className="fa-solid fa-car-on"></i> OPTIONS</h4>
 
-            <p>{interior.color}</p>
-            <img src={interior.image} />
+            <div className='car-details'>
+                <p><strong>🖌️ Exterior:</strong> <br /> {exterior.color}</p>
+                <p><strong>😎 Roof:</strong> <br /> {roof.color}</p>
+                <p><strong>🛞 Wheels:</strong> <br /> {wheels.color}</p>
+                <p><strong>💺 Interior:</strong> <br /> {interior.color}</p>
+            </div>
 
-            <Link to={'/edit/' + props.id} role='button'>Edit</Link>
-            <Link to={'/customcars/' + props.id} role='button'>View Details</Link>
-            <button onClick={deleteCustomCar}>Delete</button>
+            <div className='car-details-buttons'>
+                <Link to={'/customcars/' + props.id} role='button'>Details</Link>
+                <Link to={'/edit/' + props.id} role='button'>Edit</Link>
+                <button onClick={deleteCustomCar}>Delete</button>
+            </div>
+
         </article>
     )
 }

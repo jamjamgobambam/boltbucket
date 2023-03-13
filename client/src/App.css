@@ -5,6 +5,8 @@
   background-position: center;
   width: 100vw;
   height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /* header */
@@ -12,7 +14,7 @@
 header {
   background-color: rgba(0, 0, 0, 0.8);
   width: 100vw;
-  height: 80px;
+  height: 110px;
   padding: 20px 50px 10px 50px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -48,15 +50,15 @@ header [role=button]:hover {
 
 .Options {
   width: 100vw;
-  height: 80px;
-  padding: 30px 50px 30px 50px;
+  height: 50px;
+  padding: 5px 50px 30px 50px;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   align-content: center;
 }
 
 .Options details {
-  width: 20vw;
+  width: 25vw;
   border: 0px;
   margin-right: 20px;
 }
@@ -80,6 +82,7 @@ header [role=button]:hover {
   width: 200px;
   height: 40px;
   font-size: 14px;
+  color: white;
   margin-right: 20px;
   margin-bottom: 0px;
   display: flex;
@@ -96,17 +99,178 @@ header [role=button]:hover {
   justify-content: center;
 }
 
+/* options list */
+
+.options-list {
+  height: 400px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding-top: 10px;
+  justify-content: center;
+}
+
+.options-name-and-selection {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 5px;
+  color: white;
+  height: 130px;
+}
+
+.options-list p {
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.options-selection {
+  cursor: pointer;
+  text-align: center;
+}
+
+.options-selection i:visited {
+  color: green;
+}
+
+.OptionsCard {
+  background-position: center;
+  background-size: cover;
+  width: 115px;
+  height: 150px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 /* view all cars */
 
 .ViewCustomCars {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin: 20px 50px 20px 50px;
 }
 
-article {
-  width: 500px;
+i {
+  margin-right: 5px;
 }
 
-article header {
-  width: 400px;
+.price {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.car-details {
+  width: 100%;
+  height: 180px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  column-gap: 15px;
+  row-gap: 15px;
+}
+
+.car-details p {
+  color: white;
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+
+.car-details-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0px;
+  border: none;
+  height: 60px;
+}
+
+.car-details-buttons button {
+  width: 80px;
+  height: 40px;
+  font-size: 14px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.car-details-buttons [role=button] {
+  width: 80px;
+  height: 40px;
+  font-size: 14px;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+/* view car details */
+
+.CustomCar {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  width: 90vw;
+  height: 70vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-top: 30px;
+  padding: 40px;
+  overflow-y: scroll;
+}
+
+.single-car-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 15px;
+  justify-items: center;
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.single-car-details p {
+  font-size: 12px;
+  color: white;
+}
+
+.single-car-details img {
+  width: 200px;
+  height: 70px;
+}
+
+.single-car-buttons {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.single-car-buttons button, .single-car-buttons [role=button], .single-car-buttons [type="submit"] {
+  width: 120px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.single-car-buttons [type="submit"] {
+  width: 80vw;
+}
+
+/* edit car */
+
+.CustomCar details {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
 }

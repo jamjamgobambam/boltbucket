@@ -16,13 +16,37 @@
 
 :root:not([dark-theme=dark]), [dark-theme=light] {
   --h1-color: white;
+  --form-element-border-color: white;
+  --form-element-active-border-color: white;
 }
 
 h1 {
   text-transform: uppercase;
 }
 
-button, input[type=submit] {
+h2 {
+  text-transform: uppercase;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+h3 {
+  text-transform: uppercase;
+  font-size: 18px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: white;
+}
+
+button, input[type=submit], [role=button] {
   background-color: rgb(115, 2, 12);
   color: white;
   font-weight: bold;
@@ -30,9 +54,26 @@ button, input[type=submit] {
   border: 2px solid transparent;
   padding: 10px;
   line-height: 0;
+  display: flex;
+  align-items: center;
 }
 
-button:hover, input[type=submit]:hover {
+button:hover, input[type=submit]:hover, [role=button]:hover {
   background-color: rgb(13, 13, 13);
   border: 2px solid white;
+}
+
+article {
+  width: 280px;
+  height: 430px;
+  margin: 15px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+article header {
+  width: 280px;
+  height: 70px;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 20px;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import OptionsCard from '../components/OptionsCard'
 import '../App.css'
 
 const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
@@ -51,16 +52,26 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
         }
     }, [data, id])
 
-    const handleChange = (price) => (event) => {
-        const {name, value} = event.target
-
-        const newPrice = Number(customCar.total_price) + Number(price)
+    const handleChange = (elementId, input, value, price) => (event) => {
+        document.getElementById(elementId).style.color = 'green'
 
         setCustomCar((prev) => {
             return {
             ...prev,
-            [name]:value,
-            total_price:newPrice
+            [input]:value,
+            }
+        })
+
+        updateCustomCarPrice()
+    }
+
+    const updateCustomCarPrice = () => {
+        const totalPrice = Number(exteriorChoice.price) + Number(roofChoice.price) + Number(wheelsChoice.price) + Number(interiorChoice.price)
+
+        setCustomCar((prev) => {
+            return {
+                ...prev,
+                total_price:totalPrice
             }
         })
     }
@@ -82,92 +93,50 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
     }
 
     return (
-        <div className="EditCustomCar">
+        <div className='CustomCar'>
             <h2>{customCar.name}</h2>
-            <p>{customCar.total_price}</p>
-            
-            <h3>Current Exterior</h3>
-            <p>{exteriorChoice.color}</p>
-            <p>{exteriorChoice.price}</p>
-            <img src={exteriorChoice.image} />
+            <p className='price'>💰 ${customCar.total_price} 💰</p>
+
+            <div className='single-car-details'>
+                <h3>Exterior</h3>
+                <h3>Roof</h3>
+                <h3>Wheels</h3>
+                <h3>Interior</h3>
+
+                <p>{exteriorChoice.color} -- 💵 ${exteriorChoice.price}</p>
+                <p>{roofChoice.color} -- 💵 ${roofChoice.price}</p>
+                <p>{wheelsChoice.color} -- 💵 ${wheelsChoice.price}</p>
+                <p>{interiorChoice.color} -- 💵 ${interiorChoice.price}</p>
+
+                <img src={exteriorChoice.image} />
+                <img src={roofChoice.image} />
+                <img src={wheelsChoice.image} />
+                <img src={interiorChoice.image} />
+            </div>
 
             <details>
-            <summary>Change Exterior</summary>
-            <div>
-                {
-                    exterior && exterior.length > 0 ?
-                    exterior.map((exterior, index) =>
-                    <div style={{ backgroundImage: `url(${exterior.image})`}} key={exterior.id}>
-                        <p>{exterior.color}</p>
-                        <p>{exterior.price}</p>
-                        <button onClick={handleChange(exterior.price)} name='exterior_id' value={exterior.id}><i className="fa-solid fa-circle-plus"></i></button>
-                    </div>
-                    ) : <p>{'No exterior options'}</p>
-                }
-                </div>
+                <summary>Choose New Exterior</summary>
+                <OptionsCard data={exterior} optionName={'exterior_id'} handleChange={handleChange} />
             </details>
-
-            <h3>Current Roof</h3>
-            <p>{roofChoice.color}</p>
-            <p>{roofChoice.price}</p>
-            <img src={roofChoice.image} />
 
             <details>
-            <summary>Change Roof</summary>
-            <div className="options-list">
-                {
-                    roof && roof.length > 0 ?
-                    roof.map((roof, index) =>
-                    <div className="OptionsCard" style={{ backgroundImage: `url(${roof.image})`}} key={roof.id}>
-                        <p>{roof.color}</p>
-                        <button onClick={handleChange(roof.price)} name='roof_id' value={roof.id} price={roof.price}><i className="fa-solid fa-circle-plus"></i></button>
-                    </div>
-                    ) : <p>{'No roof options'}</p>
-                }
-                </div>
+                <summary>Choose New Roof</summary>
+                <OptionsCard data={roof} optionName={'roof_id'} handleChange={handleChange} />
             </details>
-
-            <h3>Current Wheels</h3>
-            <p>{wheelsChoice.color}</p>
-            <p>{wheelsChoice.price}</p>
-            <img src={wheelsChoice.image} />
 
             <details>
-            <summary>Change Wheels</summary>
-            <div className="options-list">
-                {
-                    wheels && wheels.length > 0 ?
-                    wheels.map((wheels, index) =>
-                    <div className="OptionsCard" style={{ backgroundImage: `url(${wheels.image})`}} key={wheels.id}>
-                        <p>{wheels.color}</p>
-                        <button onClick={handleChange(wheels.price)} name='wheels_id' value={wheels.id} price={wheels.price}><i className="fa-solid fa-circle-plus"></i></button>
-                    </div>
-                    ) : <p>{'No wheels options'}</p>
-                }
-                </div>
+                <summary>Choose New Wheels</summary>
+                <OptionsCard data={wheels} optionName={'wheels_id'} handleChange={handleChange} />
             </details>
-
-            <h3>Current Interior</h3>
-            <p>{interiorChoice.color}</p>
-            <p>{interiorChoice.price}</p>
-            <img src={interiorChoice.image} />
 
             <details>
-            <summary>Change Interior</summary>
-            <div className="options-list">
-                {
-                    interior && interior.length > 0 ?
-                    interior.map((interior, index) =>
-                    <div className="OptionsCard" style={{ backgroundImage: `url(${interior.image})`}} key={interior.id}>
-                        <p>{interior.color}</p>
-                        <button onClick={handleChange(interior.price)} name='interior_id' value={interior.id} price={interior.price}><i className="fa-solid fa-circle-plus"></i></button>
-                    </div>
-                    ) : <p>{'No interior options'}</p>
-                }
-                </div>
+                <summary>Choose New Interior</summary>
+                <OptionsCard data={interior} optionName={'interior_id'} handleChange={handleChange} />
             </details>
 
-            <input type='submit' value={'Update ' + customCar.name} onClick={updateCustomCar} />
+            <div className="single-car-buttons">
+                <input type='submit' value={'Update ' + customCar.name} onClick={updateCustomCar} />
+            </div>
         </div>
     )
 }

@@ -64,32 +64,31 @@ const CustomCar = ({data}) => {
     }
 
     return (
-        <div className="CustomCar">
+        <div className='CustomCar'>
             <h2>{customCar.name}</h2>
-            <p>{customCar.total_price}</p>
-            
-            <h3>Exterior</h3>
-            <p>{exterior.color}</p>
-            <p>{exterior.price}</p>
-            <img src={exterior.image} />
+            <p className='price'>💰 ${customCar.total_price} 💰</p>
 
-            <h3>Roof</h3>
-            <p>{roof.color}</p>
-            <p>{roof.price}</p>
-            <img src={roof.image} />
+            <div className='single-car-details'>
+                <h3>Exterior</h3>
+                <h3>Roof</h3>
+                <h3>Wheels</h3>
+                <h3>Interior</h3>
 
-            <h3>Wheels</h3>
-            <p>{wheels.color}</p>
-            <p>{wheels.price}</p>
-            <img src={wheels.image} />
+                <p>{exterior.color} <br /> 💵 ${exterior.price}</p>
+                <p>{roof.color} <br /> 💵 ${roof.price}</p>
+                <p>{wheels.color} <br /> 💵 ${wheels.price}</p>
+                <p>{interior.color} <br /> 💵 ${interior.price}</p>
 
-            <h3>Interior</h3>
-            <p>{interior.color}</p>
-            <p>{wheels.price}</p>
-            <img src={interior.image} />
+                <img src={exterior.image} />
+                <img src={roof.image} />
+                <img src={wheels.image} />
+                <img src={interior.image} />
+            </div>
 
-            <Link to={'/edit/' + customCar.id} role='button'>Edit</Link>
-            <button onClick={deleteCustomCar}>Delete</button>
+            <div className='single-car-buttons'>
+                <Link to={'/edit/' + customCar.id} role='button'>Edit</Link>
+                <button onClick={deleteCustomCar}>Delete</button>
+            </div>
         </div>
     )
 }
