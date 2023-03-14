@@ -7,14 +7,14 @@ const CustomCar = ({data}) => {
     const {id} = useParams()
     const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, total_price: 0})
 
-    const [exterior, setExterior] = useState([])
-    const [roof, setRoof] = useState([])
-    const [wheels, setWheels] = useState([])
-    const [interior, setInterior] = useState([])
+    const [exterior, setExterior] = useState({})
+    const [roof, setRoof] = useState({})
+    const [wheels, setWheels] = useState({})
+    const [interior, setInterior] = useState({})
 
     useEffect(() => {
         const result = data.filter(item => item.id === parseInt(id))[0]
-
+        
         if (result) {
             setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id, total_price: result.total_price})
         }

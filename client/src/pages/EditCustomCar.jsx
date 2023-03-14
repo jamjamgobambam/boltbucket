@@ -8,10 +8,10 @@ const EditCustomCar = ({data, exterior, roof, wheels, interior}) => {
     const {id} = useParams()
     const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, total_price: 0})
 
-    const [exteriorChoice, setExteriorChoice] = useState([])
-    const [roofChoice, setRoofChoice] = useState([])
-    const [wheelsChoice, setWheelsChoice] = useState([])
-    const [interiorChoice, setInteriorChoice] = useState([])
+    const [exteriorChoice, setExteriorChoice] = useState({})
+    const [roofChoice, setRoofChoice] = useState({})
+    const [wheelsChoice, setWheelsChoice] = useState({})
+    const [interiorChoice, setInteriorChoice] = useState({})
 
     useEffect(() => {
         const result = data.filter(item => item.id === parseInt(id))[0]
