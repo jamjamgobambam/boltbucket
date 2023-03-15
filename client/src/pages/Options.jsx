@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
 
-const Options = ({custom, exterior, roof, wheels, interior}) => {
+const Options = ({exterior, roof, wheels, interior}) => {
 
   const [customCar, setCustomCar] = useState({name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, total_price: 0})
 

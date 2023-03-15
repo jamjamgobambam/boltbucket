@@ -1,55 +1,61 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import '../App.css'
+import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions } from '../utilities/CarOptions'
 
 const CustomCar = ({data}) => {
 
     const {id} = useParams()
-    const [customCar, setCustomCar] = useState({id: 0, name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, total_price: 0})
-
-    const [exterior, setExterior] = useState({})
-    const [roof, setRoof] = useState({})
-    const [wheels, setWheels] = useState({})
-    const [interior, setInterior] = useState({})
+    const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11})
 
     useEffect(() => {
-        const result = data.filter(item => item.id === parseInt(id))[0]
-        
-        if (result) {
+        const fetchCar = async () => {
+            const result = await data.filter(item => item.id === parseInt(id))[0]
             setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id, total_price: result.total_price})
         }
 
-        const fetchExteriorChoice = async () => {
-            const exteriorResponse = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + customCar.exterior_id)
-            const exteriorData = await exteriorResponse.json()
+        fetchCar()
+    }, [data, id])
+
+    const [exterior, setExterior] = useState([])
+    useEffect(() => {
+        const fetchExterior = async () => {
+            const exteriorData = await fetchExteriorOptions(customCar.exterior_id)
             setExterior(exteriorData)
         }
 
-        const fetchRoofChoice = async () => {
-            const roofResponse = await fetch('https://boltbucketapi.up.railway.app/roofs/' + customCar.roof_id)
-            const roofData = await roofResponse.json()
+        fetchExterior()
+    }, [exterior, id])
+
+    const [roof, setRoof] = useState([])
+    useEffect(() => {
+        const fetchRoof = async () => {
+            const roofData = await fetchRoofOptions(customCar.roof_id)
             setRoof(roofData)
         }
 
-        const fetchWheelsChoice = async () => {
-            const wheelResponse = await fetch('https://boltbucketapi.up.railway.app/wheels/' + customCar.wheels_id)
-            const wheelData = await wheelResponse.json()
-            setWheels(wheelData)
+        fetchRoof()
+    }, [roof, id])
+
+    const [wheels, setWheels] = useState([])
+    useEffect(() => {
+        const fetchWheels = async () => {
+            const wheelsData = await fetchWheelOptions(customCar.wheels_id)
+            setWheels(wheelsData)
         }
 
-        const fetchInteriorChoice = async () => {
-            const interiorResponse = await fetch('https://boltbucketapi.up.railway.app/interiors/' + customCar.interior_id)
-            const interiorData = await interiorResponse.json()
+        fetchWheels()
+    }, [wheels, id])
+
+    const [interior, setInterior] = useState([])
+    useEffect(() => {
+        const fetchInterior = async () => {
+            const interiorData = await fetchInteriorOptions(customCar.interior_id)
             setInterior(interiorData)
         }
 
-        if (customCar.id != 0) {
-            fetchExteriorChoice()
-            fetchRoofChoice()
-            fetchWheelsChoice()
-            fetchInteriorChoice()
-        }
-    }, [data, id])
+        fetchInterior()
+    }, [interior, id])
 
     const deleteCustomCar = async (event) => {
         event.preventDefault()

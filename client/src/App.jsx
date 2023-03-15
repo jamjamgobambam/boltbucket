@@ -61,7 +61,7 @@ const App = () => {
   let element = useRoutes([
     {
       path: '/',
-      element: <Options custom={custom} exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
+      element: <Options exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
     },
     {
       path: '/customcars',
@@ -73,7 +73,7 @@ const App = () => {
     },
     {
       path: '/edit/:id',
-      element: <EditCustomCar data={custom} exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
+      element: <EditCustomCar data={custom} />
     }
   ])
 
