@@ -6,7 +6,7 @@ import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInterio
 const CustomCar = ({data}) => {
 
     const {id} = useParams()
-    const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: false})
+    const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: "false"})
 
     useEffect(() => {
         const fetchCar = async () => {

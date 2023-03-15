@@ -5,7 +5,7 @@ import { calcTotalPrice } from '../utilities/CarOptions'
 
 const Options = ({exterior, roof, wheels, interior}) => {
 
-  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: false})
+  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: "false"})
 
   const handleChange = (carOption, optionId) => (event) => {
     document.getElementById(carOption + optionId).style.color = 'green'
@@ -49,7 +49,7 @@ const Options = ({exterior, roof, wheels, interior}) => {
       setCustomCar((prev) => {
           return {
           ...prev,
-          isconvertible:true,
+          isconvertible:"true",
           }
       })
     }

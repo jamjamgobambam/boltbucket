@@ -28,6 +28,7 @@ export const getCustomCarById = async (req, res) => {
 export const createCustomCar = async (req, res) => {
     try {
         const { name, exterior_id, roof_id, wheels_id, interior_id, total_price, isconvertible } = req.body
+        console.log(isconvertible)
         const results = await pool.query(
             `INSERT INTO customcar (name, exterior_id, roof_id, wheels_id, interior_id, total_price, isconvertible)
             VALUES($1, $2, $3, $4, $5, $6, $7)
