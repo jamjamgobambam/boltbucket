@@ -1,43 +1,48 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css'
+import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions } from '../utilities/CarOptions'
 
 const Car = (props) => {
 
     const [exterior, setExterior] = useState([])
-    const [roof, setRoof] = useState([])
-    const [wheels, setWheels] = useState([])
-    const [interior, setInterior] = useState([])
-
     useEffect(() => {
-        const fetchExteriorOptions = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/exteriors/' + props.exterior)
-            const exteriorData = await response.json()
+        const fetchExterior = async () => {
+            const exteriorData = await fetchExteriorOptions(props.exterior)
             setExterior(exteriorData)
         }
 
-        const fetchRoofOptions = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/roofs/' + props.roof)
-            const roofData = await response.json()
+        fetchExterior()
+    }, [])
+
+    const [roof, setRoof] = useState([])
+    useEffect(() => {
+        const fetchRoof = async () => {
+            const roofData = await fetchRoofOptions(props.roof)
             setRoof(roofData)
         }
 
-        const fetchWheelOptions = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/wheels/' + props.wheels)
-            const wheelData = await response.json()
-            setWheels(wheelData)
+        fetchRoof()
+    }, [])
+
+    const [wheels, setWheels] = useState([])
+    useEffect(() => {
+        const fetchWheels = async () => {
+            const wheelsData = await fetchWheelOptions(props.wheels)
+            setWheels(wheelsData)
         }
 
-        const fetchInteriorOptions = async () => {
-            const response = await fetch('https://boltbucketapi.up.railway.app/interiors/' + props.interior)
-            const interiorData = await response.json()
+        fetchWheels()
+    }, [])
+
+    const [interior, setInterior] = useState([])
+    useEffect(() => {
+        const fetchInterior = async () => {
+            const interiorData = await fetchInteriorOptions(props.interior)
             setInterior(interiorData)
         }
 
-        fetchExteriorOptions()
-        fetchRoofOptions()
-        fetchWheelOptions()
-        fetchInteriorOptions()
+        fetchInterior()
     }, [])
 
     const deleteCustomCar = async (event) => {
