@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
-import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions } from '../utilities/CarOptions'
+import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions, calcTotalPrice } from '../utilities/CarOptions'
 
-const EditCustomCar = ({data}) => {
+const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interiorOptions}) => {
 
     const {id} = useParams()
-    const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11})
+    const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: false})
 
     useEffect(() => {
         const fetchCar = async () => {
             const result = await data.filter(item => item.id === parseInt(id))[0]
-            setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id, total_price: result.total_price})
+            setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id, total_price: result.total_price, isconvertible: result.isconvertible})
         }
 
         fetchCar()
@@ -58,27 +58,27 @@ const EditCustomCar = ({data}) => {
         fetchInterior()
     }, [interior, id])
 
-    const handleChange = (elementId, input, value, price) => (event) => {
-        document.getElementById(elementId).style.color = 'green'
-
+    const handleChange = (carOption, optionId) => (event) => {
+        document.getElementById(carOption + optionId).style.color = 'green'
+    
         setCustomCar((prev) => {
             return {
             ...prev,
-            [input]:value,
+            [carOption]:optionId
             }
         })
-
-        updateCustomCarPrice()
+    
+        getPrice()
     }
 
-    const updateCustomCarPrice = () => {
-        const totalPrice = Number(exterior.price) + Number(roof.price) + Number(wheels.price) + Number(interior.price)
-
+    const getPrice = async () => {
+        const newPrice = await calcTotalPrice(customCar)
+        
         setCustomCar((prev) => {
-            return {
-                ...prev,
-                total_price:totalPrice
-            }
+          return {
+            ...prev,
+            total_price:newPrice
+          }
         })
     }
 
@@ -122,22 +122,22 @@ const EditCustomCar = ({data}) => {
 
             <details>
                 <summary>Choose New Exterior</summary>
-                <OptionsCard data={exterior} optionName={'exterior_id'} handleChange={handleChange} />
+                <OptionsCard data={exteriorOptions} optionName={'exterior_id'} handleChange={handleChange} />
             </details>
 
             <details>
                 <summary>Choose New Roof</summary>
-                <OptionsCard data={roof} optionName={'roof_id'} handleChange={handleChange} />
+                <OptionsCard data={roofOptions} optionName={'roof_id'} handleChange={handleChange} />
             </details>
 
             <details>
                 <summary>Choose New Wheels</summary>
-                <OptionsCard data={wheels} optionName={'wheels_id'} handleChange={handleChange} />
+                <OptionsCard data={wheelOptions} optionName={'wheels_id'} handleChange={handleChange} />
             </details>
 
             <details>
                 <summary>Choose New Interior</summary>
-                <OptionsCard data={interior} optionName={'interior_id'} handleChange={handleChange} />
+                <OptionsCard data={interiorOptions} optionName={'interior_id'} handleChange={handleChange} />
             </details>
 
             <div className="single-car-buttons">

@@ -63,6 +63,12 @@ button:hover, input[type=submit]:hover, [role=button]:hover {
   border: 2px solid white;
 }
 
+[type=checkbox] {
+  width: 1em;
+  height: 1em;
+  margin-top: 3px;
+}
+
 article {
   width: 280px;
   height: 430px;

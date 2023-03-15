@@ -27,12 +27,12 @@ export const getCustomCarById = async (req, res) => {
 
 export const createCustomCar = async (req, res) => {
     try {
-        const { name, exterior_id, roof_id, wheels_id, interior_id, total_price } = req.body
+        const { name, exterior_id, roof_id, wheels_id, interior_id, total_price, isconvertible } = req.body
         const results = await pool.query(
-            `INSERT INTO customcar (name, exterior_id, roof_id, wheels_id, interior_id, total_price)
-            VALUES($1, $2, $3, $4, $5, $6)
+            `INSERT INTO customcar (name, exterior_id, roof_id, wheels_id, interior_id, total_price, isconvertible)
+            VALUES($1, $2, $3, $4, $5, $6, $7)
             RETURNING *`,
-            [name, parseInt(exterior_id), parseInt(roof_id), parseInt(wheels_id), parseInt(interior_id), parseFloat(total_price)]
+            [name, parseInt(exterior_id), parseInt(roof_id), parseInt(wheels_id), parseInt(interior_id), parseFloat(total_price), isconvertible]
         )
 
         res.status(201).json(results.rows[0])

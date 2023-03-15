@@ -73,7 +73,7 @@ const App = () => {
     },
     {
       path: '/edit/:id',
-      element: <EditCustomCar data={custom} />
+      element: <EditCustomCar data={custom} exteriorOptions={exterior} roofOptions={roof} wheelOptions={wheels} interiorOptions={interior} />
     }
   ])
 

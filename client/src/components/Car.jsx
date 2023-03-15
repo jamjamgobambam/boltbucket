@@ -60,7 +60,7 @@ const Car = (props) => {
     return (
         <article>
             <header>
-                <h3>{props.name}</h3>
+                <h3>{props.isconvertible ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-person-shelter"></i>}  {props.name}</h3>
             </header>
 
             <p className='price'>💰 ${props.price} 💰</p>

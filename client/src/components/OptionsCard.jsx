@@ -13,7 +13,7 @@ const OptionsCard = ({data, optionName, handleChange}) => {
                 data.map((option, index) =>
                 <div className="OptionsCard" style={{ backgroundImage: `url(${option.image})`}} key={option.id}>
                     <div className="options-name-and-selection">
-                        <div id={currentOption + option.id} className="options-selection" onClick={handleChange(currentOption+option.id, currentOption, option.id, option.price)} name={optionName} value={option.id}><i className="fa-solid fa-circle-plus"></i></div>
+                        <div id={currentOption + option.id} className="options-selection" onClick={handleChange(currentOption, option.id)} name={optionName} value={option.id}><i className="fa-solid fa-circle-plus"></i></div>
                         <p>{option.color} <br /> 💵 ${option.price}</p>
                     </div>
                 </div>

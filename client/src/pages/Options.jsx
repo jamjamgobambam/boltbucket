@@ -1,22 +1,33 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
+import { calcTotalPrice } from '../utilities/CarOptions'
 
 const Options = ({exterior, roof, wheels, interior}) => {
 
-  const [customCar, setCustomCar] = useState({name: '', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, total_price: 0})
+  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: false})
 
-  const handleChange = (price) => (event) => {
-    const {name, value} = event.target
-    const newPrice = Number(customCar.total_price) + Number(price)
+  const handleChange = (carOption, optionId) => (event) => {
+    document.getElementById(carOption + optionId).style.color = 'green'
 
     setCustomCar((prev) => {
         return {
         ...prev,
-        [name]:value,
-        total_price:newPrice
+        [carOption]:optionId
         }
+    })
+
+    getPrice()
+  }
+
+  const getPrice = async () => {
+    const newPrice = await calcTotalPrice(customCar)
+    
+    setCustomCar((prev) => {
+      return {
+        ...prev,
+        total_price:newPrice
+      }
     })
   }
 
@@ -34,6 +45,15 @@ const Options = ({exterior, roof, wheels, interior}) => {
   const createCustomCar = async (event) => {
     event.preventDefault()
 
+    if (document.getElementById('isconvertible').checked) {
+      setCustomCar((prev) => {
+          return {
+          ...prev,
+          isconvertible:true,
+          }
+      })
+    }
+
     const options = {
       method: 'POST',
       headers: {
@@ -49,6 +69,11 @@ const Options = ({exterior, roof, wheels, interior}) => {
 
   return (
     <div className="Options">
+      <label>
+        <input type='checkbox' id='isconvertible' name='isconvertible' value='true' />
+        Convertible
+      </label>
+
       <details>
         <summary>Exterior</summary>
         <OptionsCard data={exterior} optionName={'exterior_id'} handleChange={handleChange} />
