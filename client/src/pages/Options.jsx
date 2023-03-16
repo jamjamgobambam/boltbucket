@@ -1,19 +1,49 @@
 import React, { useState } from 'react'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
-import { calcTotalPrice, canCombineOptions, changeIconColors } from '../utilities/CarOptions'
+import { calcTotalPrice, canCombineOptions, changeIconColors, resetIconColors } from '../utilities/CarOptions'
+import Modal from 'react-modal'
 
 const Options = ({exterior, roof, wheels, interior}) => {
+
+  const [modalIsOpen, setIsOpen] = React.useState(false)
+
+  function openModal() {
+      setIsOpen(true)
+  }
+  
+  function closeModal() {
+      setIsOpen(false)
+  }
 
   const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: "false"})
 
   const handleChange = (carOption, optionId) => (event) => {
-    if (carOption === 'roof_id' && canCombineOptions(customCar, customCar.roof_id)) {
-      changeIconColors(carOption + optionId, false)
+    getComboResult(carOption, optionId)
+    getPrice()
+  }
+
+  const getComboResult = async (carOption, optionId) => {
+    if (carOption === 'roof_id') {
+      const result = await canCombineOptions(customCar, optionId)
+
+      if (!result) {
+        changeIconColors(carOption, carOption + optionId, false)
+        openModal()
+        resetIconColors(carOption)
+      }
+      else {
+        changeIconColors(carOption, carOption + optionId, true)
+        setCustomCar((prev) => {
+            return {
+            ...prev,
+            [carOption]:optionId
+            }
+        })
+      }
     }
     else {
-      changeIconColors(carOption + optionId, true)
-
+      changeIconColors(carOption, carOption + optionId, true)
       setCustomCar((prev) => {
           return {
           ...prev,
@@ -21,8 +51,6 @@ const Options = ({exterior, roof, wheels, interior}) => {
           }
       })
     }
-
-    getPrice()
   }
 
   const handleConvertible = (event) => {
@@ -75,7 +103,21 @@ const Options = ({exterior, roof, wheels, interior}) => {
   }
 
   return (
-    <div className="Options">
+    <div id='car-options' className="Options">
+      <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="Invalid"
+          className="invalid-modal"
+          overlayClassName="overlay"
+          appElement={document.getElementById('car-options')}
+      >
+          <h2>⚠️ NOPE!</h2>
+          <p>Sorry, you can't put that roof on a convertible 😔</p>
+          <p>Please choose another option <em>or</em><br />uncheck <strong>Convertible</strong> to switch back to a coupe.</p>
+          <button onClick={closeModal} className="modal-button">Ugh, ok fine 🙄</button>
+      </Modal>
+
       <label>
         <input type='checkbox' id='isconvertible' name='isconvertible' value='true' onChange={handleConvertible} />
         Convertible

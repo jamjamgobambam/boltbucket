@@ -39,7 +39,7 @@ export async function calcTotalPrice(customCar) {
 export async function canCombineOptions(customCar, id) {
     const roof = await fetchRoofOptions(id)
 
-    if (customCar.isconvertible && !roof.iscoupe) {
+    if (customCar.isconvertible && !(roof.iscoupe)) {
         return true
     }
     else {
@@ -47,7 +47,9 @@ export async function canCombineOptions(customCar, id) {
     }
 }
 
-export function changeIconColors(elementId, status) {
+export function changeIconColors(optionName, elementId, status) {
+    resetIconColors(optionName)
+
     const optionIcon = document.getElementById(elementId)
 
     if (status) {
@@ -56,4 +58,25 @@ export function changeIconColors(elementId, status) {
     else {
         optionIcon.style.color = 'red'
     }
+}
+
+export function resetIconColors(optionName) {
+    let icons = ''
+
+    if (optionName === 'exterior_id') {
+        icons = document.querySelectorAll('[id^="exterior_id"]')
+    }
+    else if (optionName === 'roof_id') {
+        icons = document.querySelectorAll('[id^="roof_id"]')
+    }
+    else if (optionName === 'wheels_id') {
+        icons = document.querySelectorAll('[id^="wheels_id"]')
+    }
+    else if (optionName === 'interior_id') {
+        icons = document.querySelectorAll('[id^="interior_id"]')
+    }
+
+    icons.forEach((icon) => {
+        icon.style.color = 'white'
+    })
 }

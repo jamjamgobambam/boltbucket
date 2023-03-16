@@ -46,6 +46,12 @@ header [role=button]:hover {
   border: 2px solid white;
 }
 
+header img {
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
+}
+
 /* customize */
 
 .Options {
@@ -134,10 +140,14 @@ header [role=button]:hover {
 }
 
 .options-list p {
-  font-size: 12px;
+  font-size: 11px;
   text-align: center;
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.options-convertible {
+  font-style: italic;
 }
 
 .options-selection {
@@ -283,4 +293,45 @@ i {
   font-weight: bold;
   text-transform: uppercase;
   color: white;
+}
+
+/* invalid modal */
+.invalid-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 4px solid rgb(115, 2, 12);
+  border-radius: 4px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 60vh;
+}
+
+.invalid-modal p {
+  font-size: 1.2em;
+  margin-bottom: 40px;
+  color: white;
+  text-align: center;
+}
+
+.modal-button {
+  width: 200px;
+  height: 60px;
+  margin-bottom: 0px;
+  justify-content: center;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }

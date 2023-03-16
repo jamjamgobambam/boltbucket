@@ -2,9 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
-import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions, calcTotalPrice, canCombineOptions, changeIconColors } from '../utilities/CarOptions'
+import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions, calcTotalPrice, canCombineOptions, changeIconColors, resetIconColors } from '../utilities/CarOptions'
+import Modal from 'react-modal'
 
 const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interiorOptions}) => {
+
+    const [modalIsOpen, setIsOpen] = React.useState(false)
+
+    function openModal() {
+        setIsOpen(true)
+    }
+    
+    function closeModal() {
+        setIsOpen(false)
+    }
 
     const {id} = useParams()
     const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: "false"})
@@ -59,12 +70,31 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
     }, [interior, id])
 
     const handleChange = (carOption, optionId) => (event) => {
-        if (carOption === 'roof_id' && canCombineOptions(customCar, customCar.roof_id)) {
-          changeIconColors(carOption + optionId, false)
+        getComboResult(carOption, optionId)
+        getPrice()
+      }
+    
+      const getComboResult = async (carOption, optionId) => {
+        if (carOption === 'roof_id') {
+          const result = await canCombineOptions(customCar, optionId)
+    
+          if (!result) {
+            changeIconColors(carOption, carOption + optionId, false)
+            openModal()
+            resetIconColors(carOption)
+          }
+          else {
+            changeIconColors(carOption, carOption + optionId, true)
+            setCustomCar((prev) => {
+                return {
+                ...prev,
+                [carOption]:optionId
+                }
+            })
+          }
         }
         else {
-          changeIconColors(carOption + optionId, true)
-    
+          changeIconColors(carOption, carOption + optionId, true)
           setCustomCar((prev) => {
               return {
               ...prev,
@@ -72,8 +102,6 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
               }
           })
         }
-    
-        getPrice()
     }
 
     const getPrice = async () => {
@@ -104,7 +132,21 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
     }
 
     return (
-        <div className='CustomCar'>
+        <div id='custom-car' className='CustomCar'>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Invalid"
+                className="invalid-modal"
+                overlayClassName="overlay"
+                appElement={document.getElementById('custom-car')}
+            >
+                <h2>⚠️ NOPE!</h2>
+                <p>Sorry, you can't put that roof on a convertible 😔</p>
+                <p>Please choose another option <em>or</em><br />uncheck <strong>Convertible</strong> to switch back to a coupe.</p>
+                <button onClick={closeModal} className="modal-button">Ugh, ok fine 🙄</button>
+            </Modal>
+
             <h2>{customCar.name}</h2>
             <p className='price'>💰 ${customCar.total_price} 💰</p>
 

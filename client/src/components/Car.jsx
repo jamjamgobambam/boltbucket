@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css'
+import convertible from '../assets/convertible.png'
+import coupe from '../assets/coupe.png'
 import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions } from '../utilities/CarOptions'
 
 const Car = (props) => {
@@ -60,7 +62,7 @@ const Car = (props) => {
     return (
         <article>
             <header>
-                <h3>{props.isconvertible ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-person-shelter"></i>}  {props.name}</h3>
+                <h3>{props.isconvertible ? <img src={convertible} /> : <img src={coupe} />}  {props.name}</h3>
             </header>
 
             <p className='price'>💰 ${props.price} 💰</p>
