@@ -15,6 +15,7 @@ const OptionsCard = ({data, optionName, handleChange}) => {
                     <div className="options-name-and-selection">
                         <div id={currentOption + option.id} className="options-selection" onClick={handleChange(currentOption, option.id)} name={optionName} value={option.id}><i className="fa-solid fa-circle-plus"></i></div>
                         <p>{option.color} <br /> 💵 ${option.price}</p>
+                        <p><em>{option.iscoupe && currentOption === 'roof_id' ? 'convertible only' : ''}</em></p>
                     </div>
                 </div>
                 ) : <p>{'No options available'}</p>

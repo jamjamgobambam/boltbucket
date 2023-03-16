@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
-import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions, calcTotalPrice } from '../utilities/CarOptions'
+import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions, calcTotalPrice, canCombineOptions, changeIconColors } from '../utilities/CarOptions'
 
 const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interiorOptions}) => {
 
@@ -59,14 +59,19 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
     }, [interior, id])
 
     const handleChange = (carOption, optionId) => (event) => {
-        document.getElementById(carOption + optionId).style.color = 'green'
+        if (carOption === 'roof_id' && canCombineOptions(customCar, customCar.roof_id)) {
+          changeIconColors(carOption + optionId, false)
+        }
+        else {
+          changeIconColors(carOption + optionId, true)
     
-        setCustomCar((prev) => {
-            return {
-            ...prev,
-            [carOption]:optionId
-            }
-        })
+          setCustomCar((prev) => {
+              return {
+              ...prev,
+              [carOption]:optionId
+              }
+          })
+        }
     
         getPrice()
     }
