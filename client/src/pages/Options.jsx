@@ -107,7 +107,7 @@ const Options = ({exterior, roof, wheels, interior}) => {
   }
 
   return (
-    <div id='car-options' className="Options">
+    <div id='car-options' className='Options'>
       <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
@@ -117,8 +117,8 @@ const Options = ({exterior, roof, wheels, interior}) => {
           appElement={document.getElementById('car-options')}
       >
           <h2>⚠️ NOPE!</h2>
-          <p>Sorry, you can't put that roof on a convertible 😔</p>
-          <p>Please choose another option <em>or</em><br />uncheck <strong>Convertible</strong> to switch back to a coupe.</p>
+          <p>Sorry, you can't put that roof on a {customCar.isconvertible ? 'convertible' : 'coupe'} 😔</p>
+          <p>Please choose another option <em>or</em><br />{customCar.isconvertible ? 'uncheck' : 'check'} <strong>Convertible</strong> to switch {customCar.isconvertible ? 'back to a coupe' : 'to a convertible'}.</p>
           <button onClick={closeModal} className="modal-button">Ugh, ok fine 🙄</button>
       </Modal>
 
