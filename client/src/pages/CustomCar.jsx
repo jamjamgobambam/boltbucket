@@ -66,7 +66,7 @@ const CustomCar = ({data}) => {
 
         await fetch('https://boltbucketapi.up.railway.app/customcars/delete/' + customCar.id, options)
 
-        window.location = '/customcars'
+        window.location = '/customcars/'
     }
 
     return (
