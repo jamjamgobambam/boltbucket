@@ -38,7 +38,7 @@ export async function calcTotalPrice(customCar) {
         totalPrice = 65000
     }
 
-    return totalPrice + exteriorPrice + roofPrice + wheelsPrice + interiorPrice
+    return Number(totalPrice) + Number(exteriorPrice) + Number(roofPrice) + Number(wheelsPrice) + Number(interiorPrice)
 }
 
 export async function canCombineOptions(customCar, id) {

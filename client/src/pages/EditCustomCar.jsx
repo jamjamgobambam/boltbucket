@@ -18,17 +18,18 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
         setIsOpen(false)
     }
 
-    const {id} = useParams()
-    const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: "false"})
+    const {carId} = useParams()
+    const [customCar, setCustomCar] = useState({id: carId, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: false})
 
     useEffect(() => {
         const fetchCar = async () => {
-            const result = await data.filter(item => item.id === parseInt(id))[0]
-            setCustomCar({id: result.id, name: result.name, exterior_id: result.exterior_id, roof_id: result.roof_id, wheels_id: result.wheels_id, interior_id: result.interior_id, total_price: result.total_price, isconvertible: result.isconvertible})
+            const results = await fetch('https://boltbucketapi.up.railway.app/customcars/' + carId)
+            const carData = await results.json()
+            setCustomCar(carData)
         }
 
         fetchCar()
-    }, [data, id])
+    }, [data, carId])
 
     const [exterior, setExterior] = useState([])
     useEffect(() => {
@@ -38,7 +39,7 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
         }
 
         fetchExterior()
-    }, [exterior, id])
+    }, [exterior, carId])
 
     const [roof, setRoof] = useState([])
     useEffect(() => {
@@ -48,7 +49,7 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
         }
 
         fetchRoof()
-    }, [roof, id])
+    }, [roof, carId])
 
     const [wheels, setWheels] = useState([])
     useEffect(() => {
@@ -58,7 +59,7 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
         }
 
         fetchWheels()
-    }, [wheels, id])
+    }, [wheels, carId])
 
     const [interior, setInterior] = useState([])
     useEffect(() => {
@@ -68,7 +69,7 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
         }
 
         fetchInterior()
-    }, [interior, id])
+    }, [interior, carId])
 
     const handleChange = (carOption, optionId) => (event) => {
         getComboResult(carOption, optionId)
@@ -95,7 +96,7 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
         changeIconColors(carOption, carOption + optionId, false)
         openModal()
         resetIconColors(carOption)
-        customCar.roof_id = 0
+        customCar.roof_id = 32
     }
 
     const setCarOption = (carOption, optionId) => {

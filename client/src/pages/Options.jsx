@@ -16,7 +16,7 @@ const Options = ({exterior, roof, wheels, interior}) => {
       setIsOpen(false)
   }
 
-  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, isconvertible: false})
+  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: false})
 
   const handleConvertible = async (event) => {
     const status = document.getElementById('isConvertible').checked
@@ -55,7 +55,7 @@ const Options = ({exterior, roof, wheels, interior}) => {
     changeIconColors(carOption, carOption + optionId, false)
     openModal()
     resetIconColors(carOption)
-    customCar.roof_id = 0
+    customCar.roof_id = 32
   }
 
   const setCarOption = (carOption, optionId) => {

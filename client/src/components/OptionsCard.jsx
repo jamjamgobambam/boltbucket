@@ -5,6 +5,18 @@ const OptionsCard = ({data, optionName, handleChange}) => {
 
     const currentOption = optionName
 
+    const details = document.querySelectorAll('details')
+
+    details.forEach((targetDetail) => {
+        targetDetail.addEventListener('click', () => {
+            details.forEach((detail) => {
+            if (detail !== targetDetail) {
+                detail.removeAttribute('open')
+            }
+            })
+        })
+    })
+
     return (
         <div className="options-list">
             {
