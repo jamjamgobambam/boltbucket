@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import '../App.css'
 
 const OptionsCard = ({data, optionName, handleChange}) => {
@@ -17,7 +16,7 @@ const OptionsCard = ({data, optionName, handleChange}) => {
                             <i className="fa-solid fa-circle-plus"></i>
                         </div>
                         <p>{option.color} <br /> 💵 ${option.price}</p>
-                        <p className='options-convertible'>{option.iscoupe && currentOption === 'roof_id' ? 'convertible only' : ''}</p>
+                        <p className='options-convertible'>{option.isconvertible && currentOption === 'roof_id' ? 'convertible only' : ''}</p>
                     </div>
                 </div>
                 ) : <p>{'No options available'}</p>

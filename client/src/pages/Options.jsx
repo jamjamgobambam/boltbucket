@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
-import { calcTotalPrice, canCombineOptions, changeIconColors, resetIconColors } from '../utilities/CarOptions'
+import { calcTotalPrice, canCombineOptions, changeIconColors, resetIconColors } from '../utilities/ValidateOptions'
 import Modal from 'react-modal'
 
 const Options = ({exterior, roof, wheels, interior}) => {
@@ -16,7 +16,19 @@ const Options = ({exterior, roof, wheels, interior}) => {
       setIsOpen(false)
   }
 
-  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: "false"})
+  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, isconvertible: false})
+
+  const handleConvertible = async (event) => {
+    const status = document.getElementById('isConvertible').checked
+    customCar.isconvertible = status
+
+    if (customCar.roof_id !== 0) {
+      const result = await canCombineOptions(customCar, customCar.roof_id)
+      if (!result) {
+        setInvalidRoofCombo('roof_id', customCar.roof_id)
+      }
+    }
+  }
 
   const handleChange = (carOption, optionId) => (event) => {
     getComboResult(carOption, optionId)
@@ -28,40 +40,32 @@ const Options = ({exterior, roof, wheels, interior}) => {
       const result = await canCombineOptions(customCar, optionId)
 
       if (!result) {
-        changeIconColors(carOption, carOption + optionId, false)
-        openModal()
-        resetIconColors(carOption)
+        setInvalidRoofCombo(carOption, optionId)
       }
       else {
-        changeIconColors(carOption, carOption + optionId, true)
-        setCustomCar((prev) => {
-            return {
-            ...prev,
-            [carOption]:optionId
-            }
-        })
+        setCarOption(carOption, optionId)
       }
     }
     else {
-      changeIconColors(carOption, carOption + optionId, true)
-      setCustomCar((prev) => {
-          return {
-          ...prev,
-          [carOption]:optionId
-          }
-      })
+      setCarOption(carOption, optionId)
     }
   }
 
-  const handleConvertible = (event) => {
-    if (document.getElementById('isconvertible').checked) {
-      setCustomCar((prev) => {
-          return {
-          ...prev,
-          isconvertible:"true",
-          }
-      })
-    }
+  const setInvalidRoofCombo = (carOption, optionId) => {
+    changeIconColors(carOption, carOption + optionId, false)
+    openModal()
+    resetIconColors(carOption)
+    customCar.roof_id = 0
+  }
+
+  const setCarOption = (carOption, optionId) => {
+    changeIconColors(carOption, carOption + optionId, true)
+    setCustomCar((prev) => {
+      return {
+        ...prev,
+        [carOption]:optionId
+      }
+    })
   }
 
   const getPrice = async () => {
@@ -119,7 +123,7 @@ const Options = ({exterior, roof, wheels, interior}) => {
       </Modal>
 
       <label>
-        <input type='checkbox' id='isconvertible' name='isconvertible' value='true' onChange={handleConvertible} />
+        <input type='checkbox' id='isConvertible' onChange={handleConvertible} />
         Convertible
       </label>
 

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
-import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions, calcTotalPrice, canCombineOptions, changeIconColors, resetIconColors } from '../utilities/CarOptions'
+import { fetchExteriorOptions, fetchRoofOptions, fetchWheelOptions, fetchInteriorOptions } from '../utilities/CarOptions'
+import { calcTotalPrice, canCombineOptions, changeIconColors, resetIconColors } from '../utilities/ValidateOptions'
 import Modal from 'react-modal'
 
 const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interiorOptions}) => {
@@ -74,34 +75,37 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
         getPrice()
       }
     
-      const getComboResult = async (carOption, optionId) => {
+    const getComboResult = async (carOption, optionId) => {
         if (carOption === 'roof_id') {
-          const result = await canCombineOptions(customCar, optionId)
-    
-          if (!result) {
-            changeIconColors(carOption, carOption + optionId, false)
-            openModal()
-            resetIconColors(carOption)
-          }
-          else {
-            changeIconColors(carOption, carOption + optionId, true)
-            setCustomCar((prev) => {
-                return {
-                ...prev,
-                [carOption]:optionId
-                }
-            })
-          }
+            const result = await canCombineOptions(customCar, optionId)
+
+            if (!result) {
+            setInvalidRoofCombo(carOption, optionId)
+            }
+            else {
+            setCarOption(carOption, optionId)
+            }
         }
         else {
-          changeIconColors(carOption, carOption + optionId, true)
-          setCustomCar((prev) => {
-              return {
-              ...prev,
-              [carOption]:optionId
-              }
-          })
+            setCarOption(carOption, optionId)
         }
+    }
+
+    const setInvalidRoofCombo = (carOption, optionId) => {
+        changeIconColors(carOption, carOption + optionId, false)
+        openModal()
+        resetIconColors(carOption)
+        customCar.roof_id = 0
+    }
+
+    const setCarOption = (carOption, optionId) => {
+        changeIconColors(carOption, carOption + optionId, true)
+        setCustomCar((prev) => {
+          return {
+            ...prev,
+            [carOption]:optionId
+          }
+        })
     }
 
     const getPrice = async () => {
