@@ -119,10 +119,27 @@ header img {
   justify-content: center;
 }
 
+.create-car-price {
+  position: absolute;
+  top: 80vh;
+  left: 50px;
+  width: 300px;
+  height: 80px;
+  background-color: rgb(115, 2, 12);
+  border: 3px solid black;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 2em;
+}
+
 /* options list */
 
 .options-list {
-  height: 400px;
+  height: 300px;
   overflow-y: scroll;
   display: flex;
   flex-direction: row;

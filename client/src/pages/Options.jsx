@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import OptionsCard from '../components/OptionsCard'
 import '../App.css'
 import { calcTotalPrice, canCombineOptions, changeIconColors, resetIconColors } from '../utilities/ValidateOptions'
@@ -16,7 +16,11 @@ const Options = ({exterior, roof, wheels, interior}) => {
       setIsOpen(false)
   }
 
-  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: false})
+  const [customCar, setCustomCar] = useState({id: 1, name: 'my new car', exterior_id: 0, roof_id: 0, wheels_id: 0, interior_id: 0, isconvertible: false})
+
+  useEffect(() => {
+    getPrice()
+  }, [customCar, customCar.total_price])
 
   const handleConvertible = async (event) => {
     const status = document.getElementById('isConvertible').checked
@@ -55,7 +59,7 @@ const Options = ({exterior, roof, wheels, interior}) => {
     changeIconColors(carOption, carOption + optionId, false)
     openModal()
     resetIconColors(carOption)
-    customCar.roof_id = 32
+    customCar.roof_id = 0
   }
 
   const setCarOption = (carOption, optionId) => {
@@ -150,6 +154,10 @@ const Options = ({exterior, roof, wheels, interior}) => {
       <input type='text' id='name' name='name' placeholder='My New Car' onChange={handleName} />
 
       <input type='submit' value='Create' onClick={createCustomCar} />
+
+      <div className='create-car-price'>
+        💰${customCar.total_price}
+      </div>
     </div>
   )
 }

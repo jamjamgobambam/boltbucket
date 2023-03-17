@@ -20,7 +20,7 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
 
     const {carId} = useParams()
     const [customCar, setCustomCar] = useState({id: carId, name: 'my new car', exterior_id: 1, roof_id: 32, wheels_id: 24, interior_id: 11, isconvertible: false})
-
+    
     useEffect(() => {
         const fetchCar = async () => {
             const results = await fetch('https://boltbucketapi.up.railway.app/customcars/' + carId)
@@ -30,6 +30,10 @@ const EditCustomCar = ({data, exteriorOptions, roofOptions, wheelOptions, interi
 
         fetchCar()
     }, [data, carId])
+
+    useEffect(() => {
+        getPrice()
+    }, [customCar, customCar.total_price])
 
     const [exterior, setExterior] = useState([])
     useEffect(() => {
