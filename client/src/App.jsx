@@ -84,7 +84,7 @@ const App = () => {
         <h1>Bolt Bucket 🏎️</h1>
 
         <div className="nav-buttons">
-          <Link to="/" role="button">Customize</Link>
+          <a href="/" role="button">Customize</a>
           <Link to="/customcars" role="button">View Cars</Link>
         </div>
       </header>
