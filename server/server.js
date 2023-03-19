@@ -19,10 +19,15 @@ if (process.env.NODE_ENV === 'development') {
 else if (process.env.NODE_ENV === 'production') {
     app.use(favicon(path.resolve('public', 'lightning.png')))
     app.use(express.static('public'))
-    app.get('/*', (req, res) => res.sendFile(path.resolve('public', 'index.html')))
 }
 
 app.use('/api', router)
+
+if (process.node.NODE_ENV === 'production') {
+    app.get('/*', (_, res) =>
+        res.sendFile(path.resolve('public', 'index.html'))
+    )
+}
 
 app.listen(PORT, () => {
     console.log(`server listening on http://localhost:${PORT}`)
