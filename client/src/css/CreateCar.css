@@ -1,0 +1,64 @@
+#root input[type=text] {
+    font-family: var(--font-family);
+    width: 50%;
+    height: 40px;
+    font-size: 0.75em;
+    color: white;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 0px;
+    display: flex;
+    align-self: center;
+}
+
+#root input[type=checkbox] {
+    display: flex;
+    margin-right: 15px;
+}
+
+#root label {
+    font-family: var(--font-family);
+    display: flex;
+    margin-bottom: 0px;
+    width: 15%;
+}
+
+.create-car {
+    background-color: var(--card-background-color);
+    width: 100vw;
+    padding: 5px 50px 30px 50px;
+    display: flex;
+    align-content: center;
+}
+
+.create-car-name {
+    display: flex;
+}
+
+.create-car-options {
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+label {
+    color: white;
+    align-items: center;
+}
+
+.create-car-price {
+    position: absolute;
+    top: 80vh;
+    left: 50px;
+    width: 300px;
+    height: 80px;
+    background-color: var(--primary);
+    border: 3px solid black;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 2em;
+}

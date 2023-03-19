@@ -1,87 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-:root {
-  font-family: Rubik, Verdana, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+#root {
+    --font-family: Rubik, Verdana, sans-serif;
+    --primary: rgb(115, 2, 12);
+    --primary-hover: black;
+    --color: white;
+    --h1-color: var(--color);
+    --h2-color: var(--color);
+    --h3-color: var(--color);
+    --card-background-color: rgba(0, 0, 0, 0.8);
+    --card-sectionning-background-color: rgba(0, 0, 0, 0.8);
+    --form-element-active-border-color: var(--color);
+    --form-element-placeholder-color: gray;
 }
 
-:root:not([dark-theme=dark]), [dark-theme=light] {
-  --h1-color: white;
-  --form-element-border-color: white;
-  --form-element-active-border-color: white;
+#root h1 {
+    font-size: 3rem;
+    margin-bottom: 0px;
 }
 
-h1 {
-  text-transform: uppercase;
+#root h2 {
+    margin-bottom: 0px;
 }
 
-h2 {
-  text-transform: uppercase;
-  font-size: 22px;
-  color: white;
-  text-align: center;
-  margin-bottom: 15px;
+#root h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0px;
 }
 
-h3 {
-  text-transform: uppercase;
-  font-size: 18px;
-  color: white;
-  margin-bottom: 15px;
+#root p {
+    margin-bottom: 10px;
 }
 
-h4 {
-  font-size: 16px;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  color: white;
+#root [role=button], #root button, #root input[type=submit] {
+    font-family: var(--font-family);
+    font-weight: 500;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+    margin: 10px;
+    width: max-content;
 }
 
-button, input[type=submit], [role=button] {
-  background-color: rgb(115, 2, 12);
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: 2px solid transparent;
-  padding: 10px;
-  line-height: 0;
-  display: flex;
-  align-items: center;
+#root [role=button]:hover, #root button:hover, #root input[type=submit]:hover {
+    border: 2px solid var(--color);
 }
 
-button:hover, input[type=submit]:hover, [role=button]:hover {
-  background-color: rgb(13, 13, 13);
-  border: 2px solid white;
+#root main {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-[type=checkbox] {
-  width: 1em;
-  height: 1em;
-  margin-top: 3px;
+#root article {
+    text-align: left;
+    margin-bottom: 5px;
 }
 
-article {
-  width: 280px;
-  height: 430px;
-  margin: 15px;
-  background-color: rgba(0, 0, 0, 0.8);
+#root article header {
+    border-bottom: 0px;
+    margin-bottom: 10px;
 }
 
-article header {
-  width: 280px;
-  height: 70px;
-  display: block;
-  background-color: rgba(0, 0, 0, 0.8);
-  margin-bottom: 20px;
+#root article footer {
+    border-top: 0px;
+    margin-top: 0px;
+    display: flex;
 }

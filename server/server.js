@@ -1,29 +1,29 @@
 import express from 'express'
-import bodyParser from 'body-parser'
-import cors from 'cors'
+import path from 'path'
+import favicon from 'serve-favicon'
 import dotenv from 'dotenv'
-import { pool } from './db/db.js'
-import exteriorRoutes from './routes/exterior.js'
-import interiorRoutes from './routes/interior.js'
-import roofRoutes from './routes/roofs.js'
-import wheelRoutes from './routes/wheels.js'
-import customCarRoute from './routes/customcar.js'
+
+import router from './config/routes.js'
 
 dotenv.config()
 
-const server = express()
-const SERVER_PORT = process.env.PORT || 8081
+const PORT = process.env.PORT || 3000
 
-server.use(bodyParser.urlencoded( {extended: true} ))
-server.use(bodyParser.json( {extended: true} ))
-server.use(cors())
+const app = express()
 
-server.use('/exteriors', exteriorRoutes)
-server.use('/interiors', interiorRoutes)
-server.use('/roofs', roofRoutes)
-server.use('/wheels', wheelRoutes)
-server.use('/customcars', customCarRoute)
+app.use(express.json())
 
-server.listen(SERVER_PORT, () => {
-    console.log(`server listening at http://localhost:${SERVER_PORT}`)
+if (process.env.NODE_ENV === 'development') {
+    app.use(favicon(path.resolve('../', 'client', 'public', 'lightning.png')))
+}
+else if (process.env.NODE_ENV === 'production') {
+    app.use(favicon(path.resolve('public', 'lightning.png')))
+    app.use(express.static('public'))
+    app.get('/*', (req, res) => res.sendFile(path.resolve('public', 'index.html')))
+}
+
+app.use('/api', router)
+
+app.listen(PORT, () => {
+    console.log(`server listening on http://localhost:${PORT}`)
 })

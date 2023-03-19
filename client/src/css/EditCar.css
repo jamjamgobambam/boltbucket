@@ -1,0 +1,5 @@
+.car-modify-buttons {
+    grid-column: span 3;
+    display: flex;
+    justify-content: center;
+}

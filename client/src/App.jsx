@@ -1,98 +1,39 @@
-import React, { useState, useEffect } from 'react'
-import { useRoutes, Link } from 'react-router-dom'
+import React from 'react'
+import { useRoutes } from 'react-router-dom'
+import Navigation from './components/Navigation'
+import ViewCars from './pages/ViewCars'
+import EditCar from './pages/EditCar'
+import CreateCar from './pages/CreateCar'
+import CarDetails from './pages/CarDetails'
 import './App.css'
-import '~picocss/pico.min.css'
-import Options from './pages/Options'
-import ViewCustomCars from './pages/ViewCustomCars'
-import CustomCar from './pages/CustomCar'
-import EditCustomCar from './pages/EditCustomCar'
 
 const App = () => {
-
-  const [exterior, setExterior] = useState([])
-  const [roof, setRoof] = useState([])
-  const [wheels, setWheels] = useState([])
-  const [interior, setInterior] = useState([])
-  const [custom, setCustom] = useState([])
-
-  useEffect(() => {
-    const fetchExteriorOptions = async () => {
-      const response = await fetch('https://boltbucketapi.up.railway.app/exteriors')
-      const json = await response.json()
-      setExterior(json)
-      return json
-    }
-
-    const fetchRoofOptions = async () => {
-      const response = await fetch('https://boltbucketapi.up.railway.app/roofs')
-      const json = await response.json()
-      setRoof(json)
-      return json
-    }
-
-    const fetchWheelOptions = async () => {
-      const response = await fetch('https://boltbucketapi.up.railway.app/wheels')
-      const json = await response.json()
-      setWheels(json)
-      return json
-    }
-
-    const fetchInteriorOptions = async () => {
-      const response = await fetch('https://boltbucketapi.up.railway.app/interiors')
-      const json = await response.json()
-      setInterior(json)
-      return json
-    }
-
-    const fetchCustomCars = async () => {
-      const response = await fetch('https://boltbucketapi.up.railway.app/customcars')
-      const json = await response.json()
-      setCustom(json)
-      return json
-    }
-
-    fetchExteriorOptions()
-    fetchRoofOptions()
-    fetchWheelOptions()
-    fetchInteriorOptions()
-    fetchCustomCars()
-  }, [])
-
   let element = useRoutes([
     {
       path: '/',
-      element: <Options exterior={exterior} roof={roof} wheels={wheels} interior={interior} />
+      element: <CreateCar title='BOLT BUCKET | Customize' />
     },
     {
-      path: '/customcars',
-      element: <ViewCustomCars data={custom} />
+      path:'/customcars',
+      element: <ViewCars title='BOLT BUCKET | Custom Cars' />
     },
     {
       path: '/customcars/:id',
-      element: <CustomCar data={custom} />
+      element: <CarDetails title='BOLT BUCKET | View' />
     },
     {
-      path: '/edit/:carId',
-      element: <EditCustomCar data={custom} exteriorOptions={exterior} roofOptions={roof} wheelOptions={wheels} interiorOptions={interior} />
+      path: '/edit/:id',
+      element: <EditCar title='BOLT BUCKET | Edit' />
     }
   ])
 
   return (
-    <div className="App">
+    <div className='app'>
 
-      <header>
-        <h1>Bolt Bucket 🏎️</h1>
+      <Navigation />
 
-        <div className="nav-buttons">
-          <a href="/" role="button">Customize</a>
-          <Link to="/customcars" role="button">View Cars</Link>
-        </div>
-      </header>
-      
-      <main>
-        {element}
-      </main>
-    
+      { element }
+
     </div>
   )
 }

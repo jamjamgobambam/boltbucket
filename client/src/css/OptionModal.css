@@ -1,0 +1,93 @@
+.car-options {
+    display: flex;
+    width: 400px;
+    height: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.available-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.option-card {
+    width: 140px;
+    height: 90px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.option-card-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 5px;
+    color: white;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.option-card-details p {
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+
+.option-card-overlay:hover {
+    opacity: 1;
+}
+
+.option-modal {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    border: 4px solid rgb(115, 2, 12);
+    border-radius: 4px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: auto;
+}
+
+.option-modal p {
+    font-family: Rubik, Verdana, sans-serif;
+    margin-top: 5px;
+    color: white;
+    text-align: center;
+}
+
+.option-modal button {
+    background-color: rgb(115, 2, 12);
+    border: 2px solid transparent;
+    width: max-content;
+    margin: 20px 10px 50px 40px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: Rubik, Verdana, sans-serif;
+}
+
+#root button:is([aria-current]),
+#root button:active,
+#root button:focus {
+    background-color: rgb(115, 2, 12);
+    border: 2px solid transparent;
+}
+
+.option-modal button:hover {
+    background-color: black;
+    border: 2px solid white;
+}

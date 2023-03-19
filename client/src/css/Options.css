@@ -1,0 +1,13 @@
+.car-options {
+    display: flex;
+    width: 400px;
+    height: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-car-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

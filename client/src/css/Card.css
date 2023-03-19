@@ -1,0 +1,44 @@
+article {
+    width: 80vw;
+    height: 220px;
+    border-radius: 4px;
+    transition: 0.5s ease;
+    background-color: black;
+    text-align: center;
+}
+
+article:hover {
+    transform: translateX(10px) scale(1.1);
+}
+
+article img {
+    height: 50px;
+    width: auto;
+    margin-right: 10px;
+}
+
+.car-card {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.car-summary p {
+    font-size: 14px;
+}
+
+.car-price p {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.car-price [role=button] {
+    height: 40px;
+    width: 120px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0px;
+}
