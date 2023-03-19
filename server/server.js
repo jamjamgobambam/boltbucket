@@ -23,7 +23,7 @@ else if (process.env.NODE_ENV === 'production') {
 
 app.use('/api', router)
 
-if (process.node.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     app.get('/*', (_, res) =>
         res.sendFile(path.resolve('public', 'index.html'))
     )
