@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import convertible from '../assets/convertible.png'
 import coupe from '../assets/coupe.png'
 import carData from '../utilities/carData'
+import CarsAPI from '../services/CarsAPI'
 import '../App.css'
 import '../css/CarDetails.css'
 
@@ -52,7 +53,7 @@ const CarDetails = () => {
 
     const deleteCar = async (event) => {
         event.preventDefault()
-        await CarsAPI.deleteCar(props)
+        await CarsAPI.deleteCar(id)
         window.location = '/customcars'
     }
 
